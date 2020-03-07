@@ -3,12 +3,14 @@ package com.bsmart.pos.rider.ui.home;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,6 +47,9 @@ public class HomeFragment extends BaseQRCodeFragment {
     @BindView(R.id.header)
     HeaderView header;
 
+    @BindView(R.id.fromNav)
+    ImageView fromNav;
+
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +74,19 @@ public class HomeFragment extends BaseQRCodeFragment {
             }
         });
 
+        fromNav.setOnClickListener(view ->{
+
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?"
+                            + "saddr=36.894154,121.534362"
+                            + "&daddr=39.509805,116.4105069"
+                            +"&avoid=highway"
+                            +"&language=zh-CN")
+            );
+            intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+            startActivity(intent);
+
+        });
 
 
         return root;

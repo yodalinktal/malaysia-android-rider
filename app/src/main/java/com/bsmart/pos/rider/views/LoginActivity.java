@@ -12,7 +12,6 @@ import android.widget.EditText;
 import androidx.annotation.Nullable;
 
 import com.blankj.utilcode.util.ToastUtils;
-import com.bsmart.pos.rider.MainActivity;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseActivity;

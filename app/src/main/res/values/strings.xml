@@ -7,6 +7,7 @@
     <string name="title_activity_maps">POS</string>
     <string name="title_activity_Address">Address</string>
     <string name="title_activity_Login">Login</string>
+    <string name="title_activity_Delivery">Confirm Delivery</string>
     <string name="title_activity_Check_Order">Check Order</string>
     <string name="title_activity_Payment">Order Payment</string>
     <string name="title_activity_Pay_Result">Result</string>
