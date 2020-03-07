@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.bsmart.pos.rider.ui.dashboard.DashboardFragment"
+        android:name="com.bsmart.pos.rider.ui.dashboard.OrderFragment"
         android:label="@string/title_order"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.bsmart.pos.rider.ui.notifications.NotificationsFragment"
+        android:name="com.bsmart.pos.rider.ui.notifications.MeFragment"
         android:label="@string/title_me"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
