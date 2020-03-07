@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 
@@ -25,22 +26,22 @@ import butterknife.Unbinder;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
+    Unbinder unbinder;
 
     @BindView(R.id.header)
     HeaderView header;
-    Unbinder unbinder;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        unbinder = ButterKnife.bind(this, root);
 
-        unbinder = ButterKnife.bind(this,root);
-        header.setTitle("Home");
+        header.setTitle(getResources().getString(R.string.title_post));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-           // updateData();
+            ToastUtils.showShort("HomeViewModel QRCode click");
         });
         header.setRightCustomView(customRightView);
 
@@ -52,5 +53,11 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

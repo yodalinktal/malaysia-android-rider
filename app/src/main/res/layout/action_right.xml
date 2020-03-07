@@ -18,22 +18,7 @@
       android:layout_width="24dp"
       android:layout_height="24dp"
       android:layout_gravity="center"
-      android:src="@mipmap/icon_refresh"
-      />
-  </FrameLayout>
-
-  <FrameLayout
-    android:id="@+id/flPhone"
-    android:layout_width="40dp"
-    android:layout_height="40dp"
-    android:background="?android:attr/selectableItemBackground"
-    >
-
-    <ImageView
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_gravity="center"
-      android:src="@mipmap/icon_phone"
+      android:src="@mipmap/icon_qrcode_v"
       />
   </FrameLayout>
 

@@ -12,22 +12,37 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public class OrderFragment extends Fragment {
 
     private OrderViewModel orderViewModel;
+    Unbinder unbinder;
+
+    @BindView(R.id.header)
+    HeaderView header;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         orderViewModel =
                 ViewModelProviders.of(this).get(OrderViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.fragment_order, container, false);
 
-        HeaderView header = root.findViewById(R.id.header);
-        header.setTitle("Order");
+        unbinder = ButterKnife.bind(this, root);
+
+        header.setTitle(getResources().getString(R.string.title_order));
+        View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
+        customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
+            ToastUtils.showShort("OrderViewModel QRCode click");
+        });
+        header.setRightCustomView(customRightView);
 
         final TextView textView = root.findViewById(R.id.text_dashboard);
         orderViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
@@ -38,5 +53,11 @@ public class OrderFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

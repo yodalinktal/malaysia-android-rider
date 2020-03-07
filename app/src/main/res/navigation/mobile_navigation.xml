@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_order"
         android:name="com.bsmart.pos.rider.ui.dashboard.OrderFragment"
         android:label="@string/title_order"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_order" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_me"
         android:name="com.bsmart.pos.rider.ui.notifications.MeFragment"
         android:label="@string/title_me"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_me" />
 </navigation>
