@@ -15,21 +15,26 @@ import androidx.lifecycle.ViewModelProviders;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.BaseFragment;
+import com.bsmart.pos.rider.base.BaseQRCodeFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseQRCodeFragment {
 
     private MeViewModel meViewModel;
     Unbinder unbinder;
 
     @BindView(R.id.header)
     HeaderView header;
+
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         meViewModel =
                 ViewModelProviders.of(this).get(MeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_me, container, false);
@@ -38,7 +43,7 @@ public class MeFragment extends BaseFragment {
         header.setTitle(getResources().getString(R.string.title_me));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-            performQRCode();
+
         });
         header.setRightCustomView(customRightView);
 

@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.BaseFragment;
+import com.bsmart.pos.rider.base.BaseQRCodeFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class OrderFragment extends BaseFragment {
+public class OrderFragment extends BaseQRCodeFragment {
 
     private OrderViewModel orderViewModel;
     @BindView(R.id.header) HeaderView header;
@@ -44,8 +45,11 @@ public class OrderFragment extends BaseFragment {
     private OrderDeliveringFragment orderDeliveringFragment = new OrderDeliveringFragment();
     private OrderFinishedFragment orderFinishedFragment = new OrderFinishedFragment();
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         orderViewModel =
                 ViewModelProviders.of(this).get(OrderViewModel.class);
         rootView = inflater.inflate(R.layout.fragment_order, container, false);
@@ -55,7 +59,7 @@ public class OrderFragment extends BaseFragment {
         header.setTitle(getResources().getString(R.string.title_order));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-            performQRCode();
+
         });
         header.setRightCustomView(customRightView);
 

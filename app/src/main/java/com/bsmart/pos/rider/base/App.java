@@ -10,6 +10,7 @@ import com.blankj.utilcode.util.PhoneUtils;
 import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
 import com.tencent.bugly.crashreport.CrashReport;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,8 @@ public class App extends MultiDexApplication {
 
         Stetho.initializeWithDefaults(this);
         // ExceptionUtils.getINSTANCE().initialize(this);
+
+        ZXingLibrary.initDisplayOpinion(this);
         CrashReport.initCrashReport(this);
     }
 
