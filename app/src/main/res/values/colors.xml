@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#14983E</color>
     <color name="colorAccent">#14983E</color>
 
+    <color name="colorCancel">#fa673c</color>
+
     <color name="white">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
     <color name="transparent">#00000000</color>

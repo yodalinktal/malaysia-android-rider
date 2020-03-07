@@ -9,12 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
+import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,18 +32,25 @@ import butterknife.Unbinder;
 public class OrderFragment extends Fragment {
 
     private OrderViewModel orderViewModel;
+    @BindView(R.id.header) HeaderView header;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
     Unbinder unbinder;
+    private View rootView;
 
-    @BindView(R.id.header)
-    HeaderView header;
+    private OrderAcceptedFragment orderAcceptedFragment = new OrderAcceptedFragment();
+    private OrderDeliveringFragment orderDeliveringFragment = new OrderDeliveringFragment();
+    private OrderFinishedFragment orderFinishedFragment = new OrderFinishedFragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         orderViewModel =
                 ViewModelProviders.of(this).get(OrderViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_order, container, false);
+        rootView = inflater.inflate(R.layout.fragment_order, container, false);
 
-        unbinder = ButterKnife.bind(this, root);
+        unbinder = ButterKnife.bind(this, rootView);
 
         header.setTitle(getResources().getString(R.string.title_order));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
@@ -44,15 +59,69 @@ public class OrderFragment extends Fragment {
         });
         header.setRightCustomView(customRightView);
 
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        orderViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
-        return root;
+        MyAdapter myAdapter = new MyAdapter(getChildFragmentManager());
+        viewPager.setAdapter(myAdapter);
+        viewPager.setOffscreenPageLimit(3);
+        viewPager.addOnPageChangeListener(myAdapter);
+
+        tabLayout.setupWithViewPager(viewPager);
+
+        return rootView;
+    }
+
+    private class MyAdapter extends FragmentPagerAdapter
+            implements ViewPager.OnPageChangeListener {
+
+        private List<BaseFragment> fragments = new ArrayList<>();
+
+        public MyAdapter(FragmentManager fm) {
+            super(fm);
+            fragments.add(orderAcceptedFragment);
+            fragments.add(orderDeliveringFragment);
+            fragments.add(orderFinishedFragment);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0:
+                    return "Accepted";
+                case 1:
+                    return "Delivering";
+                case 2:
+                    return "Finished";
+                default:
+                    return "";
+            }
+        }
+
+        @Override
+        public void onPageScrolled(int position,
+                                   float positionOffset,
+                                   int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
     }
 
     @Override

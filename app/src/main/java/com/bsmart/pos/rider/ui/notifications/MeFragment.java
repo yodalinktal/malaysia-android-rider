@@ -40,13 +40,7 @@ public class MeFragment extends Fragment {
             ToastUtils.showShort("MeViewModel QRCode click");
         });
         header.setRightCustomView(customRightView);
-        final TextView textView = root.findViewById(R.id.text_notifications);
-        meViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 
