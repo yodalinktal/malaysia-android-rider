@@ -1,5 +1,7 @@
 package com.bsmart.pos.rider.ui.home;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +16,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
+import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,10 +27,12 @@ import butterknife.Unbinder;
 /**
  * Post
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private HomeViewModel homeViewModel;
     Unbinder unbinder;
+
+
 
     @BindView(R.id.header)
     HeaderView header;
@@ -41,7 +47,7 @@ public class HomeFragment extends Fragment {
         header.setTitle(getResources().getString(R.string.title_post));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-            ToastUtils.showShort("HomeViewModel QRCode click");
+            performQRCode();
         });
         header.setRightCustomView(customRightView);
 
@@ -60,4 +66,6 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }

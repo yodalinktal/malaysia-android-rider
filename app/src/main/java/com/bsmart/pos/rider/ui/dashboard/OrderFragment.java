@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class OrderFragment extends Fragment {
+public class OrderFragment extends BaseFragment {
 
     private OrderViewModel orderViewModel;
     @BindView(R.id.header) HeaderView header;
@@ -55,7 +55,7 @@ public class OrderFragment extends Fragment {
         header.setTitle(getResources().getString(R.string.title_order));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-            ToastUtils.showShort("OrderViewModel QRCode click");
+            performQRCode();
         });
         header.setRightCustomView(customRightView);
 

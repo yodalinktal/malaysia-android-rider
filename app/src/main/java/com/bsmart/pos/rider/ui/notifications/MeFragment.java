@@ -14,13 +14,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
+import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MeFragment extends Fragment {
+public class MeFragment extends BaseFragment {
 
     private MeViewModel meViewModel;
     Unbinder unbinder;
@@ -37,7 +38,7 @@ public class MeFragment extends Fragment {
         header.setTitle(getResources().getString(R.string.title_me));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-            ToastUtils.showShort("MeViewModel QRCode click");
+            performQRCode();
         });
         header.setRightCustomView(customRightView);
 
