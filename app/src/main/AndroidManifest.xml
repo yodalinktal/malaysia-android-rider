@@ -59,6 +59,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".views.RegisterActivity"
+            android:label="@string/title_activity_maps">
+        </activity>
+        <activity
             android:name=".views.MainActivity"
             android:label="@string/title_activity_maps">
         </activity>
@@ -67,9 +71,6 @@
             android:name=".views.ConfirmDeliveryActivity"
             android:label="@string/title_activity_maps">
         </activity>
-
-
-
         <!-- Services-->
         <service android:name=".services.CheckCaseService" />
     </application>
