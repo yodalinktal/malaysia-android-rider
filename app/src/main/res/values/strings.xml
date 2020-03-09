@@ -3,7 +3,7 @@
     <string name="title_post">Post</string>
     <string name="title_order">Order</string>
     <string name="title_me">Me</string>
-
+    <string name="pages_text_Register_Guide">No account yet? Click here to register</string>
     <string name="title_activity_maps">POS</string>
     <string name="title_activity_Address">Address</string>
     <string name="title_activity_Login">Login</string>

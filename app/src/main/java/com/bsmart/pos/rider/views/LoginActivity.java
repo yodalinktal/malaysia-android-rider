@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -38,6 +39,8 @@ public class LoginActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.btnLogin)
     Button btnLogin;
+    @BindView(R.id.registerGuide)
+    TextView registerGuide;
 
     ProgressDialog progressDialog;
 
@@ -48,7 +51,7 @@ public class LoginActivity extends BaseActivity {
         ButterKnife.bind(this);
         header.setTitle(getResources().getString(R.string.title_activity_Login));
         btnLogin.setOnClickListener(onLoginListener);
-
+        registerGuide.setOnClickListener(onRegisterGuideListener);
         requestPermissions();
 
     }
@@ -60,6 +63,11 @@ public class LoginActivity extends BaseActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 .subscribe();
     }
+
+    private View.OnClickListener onRegisterGuideListener = view -> {
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    };
 
     private View.OnClickListener onLoginListener = view -> {
 
