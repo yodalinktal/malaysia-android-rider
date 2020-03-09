@@ -76,11 +76,11 @@ public class OrderAcceptedFragment extends BaseFragment {
         from.setName("yoda");
         from.setLat(39.509805);
         from.setLon(116.4105069);
-        orderBean.setTo(from);
+        orderBean.setFrom(from);
 
         AddressBean to = new AddressBean();
-        from.setDetail("Section 61A, Petaling Jaya,46100 Selangor.");
-        from.setZone("Axis Business Campus,No 13A &13B Jalan 225,");
+        to.setDetail("Section 61A, Petaling Jaya,46100 Selangor.");
+        to.setZone("Axis Business Campus,No 13A &13B Jalan 225,");
         to.setTelephone("601012843322");
         to.setName("st");
         to.setLat(39.509805);
