@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,9 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     @BindView(R.id.tipsSecondTitle)
     TextView tipsSecondTitle;
 
+    @BindView(R.id.etCenterCode)
+    EditText etCenterCode;
+
     private OrderBean orderBean;
 
     @Override
@@ -89,6 +93,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
             tipsTitle.setText("Scan recognition error!");
             tipsSecondTitle.setText("");
             btnDelivery.setVisibility(View.INVISIBLE);
+            etCenterCode.setVisibility(View.INVISIBLE);
         }
 
 
