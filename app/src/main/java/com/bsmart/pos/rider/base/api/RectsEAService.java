@@ -38,6 +38,11 @@ public interface RectsEAService {
     @POST("rider/trace/update")
     Observable<Response<JsonObject>> traceUpdate(@FieldMap Map<String, Object> meta);
 
+
+    @FormUrlEncoded
+    @POST("rider/order/nearby")
+    Observable<Response<JsonObject>> nearby(@FieldMap Map<String, Double> meta);
+
     @Streaming
     @GET
     Call<ResponseBody> downloadFile(Url url);
