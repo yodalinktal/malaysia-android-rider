@@ -10,7 +10,12 @@ public class OrderBean {
 
     private String _id;
     private String orderNo;
+
+    private String customerId;
+    private String riderId;
+
     private AddressBean from;
+    private Double[] coordinates;
     private AddressBean to;
     private Integer amount;
     private Integer sizeWeight;
@@ -19,14 +24,47 @@ public class OrderBean {
     private Integer postType;
     private Bitmap qrCode;
     private String status;
-    private String createTime;
+    private String createDate;
+    private Long createdTimestamp;
 
-    public String getCreateTime() {
-        return createTime;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getRiderId() {
+        return riderId;
+    }
+
+    public void setRiderId(String riderId) {
+        this.riderId = riderId;
+    }
+
+    public Double[] getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(Double[] coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public Long getCreatedTimestamp() {
+        return createdTimestamp;
+    }
+
+    public void setCreatedTimestamp(Long createdTimestamp) {
+        this.createdTimestamp = createdTimestamp;
     }
 
     public String getStatus() {

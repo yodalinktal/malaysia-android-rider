@@ -23,41 +23,16 @@ import rx.Observable;
 public interface RectsEAService {
 
     @FormUrlEncoded
-    @POST("rru/account/login")
+    @POST("rider/register")
+    Observable<Response<JsonObject>> register(@FieldMap Map<String, String> meta);
+
+    @FormUrlEncoded
+    @POST("rider/login")
     Observable<Response<JsonObject>> login(@FieldMap Map<String, String> meta);
 
-
     @FormUrlEncoded
-    @POST("rru/app/order/available")
-    Observable<Response<JsonObject>> availableCases(@FieldMap Map<String, String> meta);
-
-    @FormUrlEncoded
-    @POST("rru/app/dashboard")
-    Observable<Response<JsonObject>> toggleDuty(@FieldMap Map<String, String> meta);
-
-    @FormUrlEncoded
-    @POST("rru/app/order/details")
-    Observable<Response<JsonObject>> orderDetails(@FieldMap Map<String, String> meta);
-
-    @FormUrlEncoded
-    @POST("rru/app/order/update")
-    Observable<Response<JsonObject>> updateCaseStatus(@FieldMap Map<String, String> meta);
-
-    @FormUrlEncoded
-    @POST("rru/app/order/bid")
-    Observable<Response<JsonObject>> acceptCase(@FieldMap Map<String, String> meta);
-
-    @FormUrlEncoded
-    @POST("rru/app/order/bid/ack")
-    Observable<Response<JsonObject>> confirmAcceptCase(@FieldMap Map<String, String> meta);
-
-    @Multipart
-    @POST("rru/app/order/comment")
-    Observable<Response<JsonObject>> uploadComment(@PartMap Map<String, RequestBody> body, @Part MultipartBody.Part[] media);
-
-    @FormUrlEncoded
-    @POST("rru/app/order/getComments")
-    Observable<Response<JsonObject>> getComments(@FieldMap Map<String, String> meta);
+    @POST("rider/validate")
+    Observable<Response<JsonObject>> validate(@FieldMap Map<String, String> meta);
 
 
     @Streaming

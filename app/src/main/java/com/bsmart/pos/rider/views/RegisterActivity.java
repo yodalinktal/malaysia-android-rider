@@ -14,8 +14,16 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseActivity;
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.api.UpgradeHttpException;
+import com.bsmart.pos.rider.base.api.bean.RiderBean;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.base.utils.Utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -53,7 +61,7 @@ public class RegisterActivity extends BaseActivity {
 
 
     private View.OnClickListener onRegisterListener = view -> {
-
+        performRegister(view);
 
     };
 
@@ -80,40 +88,40 @@ public class RegisterActivity extends BaseActivity {
         progressDialog.setMessage("Register in... Please wait.");
         progressDialog.show();
 
-        Map<String, String> requestData = App.getMetaRequestData();
-        requestData.put("officer_id", etUsername.getText().toString());
-        requestData.put("officer_password", etPassword.getText().toString());
+        Map<String, String> requestData = new HashMap<>();
+        requestData.put("username", etUsername.getText().toString());
+        requestData.put("password", etPassword.getText().toString());
+        requestData.put("confirmPassword", etConfirmPassword.getText().toString());
 
         //for test
-        openLoginActivity();
+        //openLoginActivity();
 
-//        Api.getRectsEA().login(requestData)
-//                .compose(new NetTransformer<>(LoginBean.class))
-//                .subscribe(new NetSubscriber<>(bean -> {
-//                    view.setEnabled(true);
-//                    progressDialog.dismiss();
-//
-//                    ProfileUtils.saveProfile(bean.profile);
-//                    ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
-//
-//                    openMainActivity();
-//                }, e -> {
-//                    progressDialog.dismiss();
-//
-//                    if (e instanceof UpgradeHttpException) {
-//                        Utils.showUpgradeDialog(this, ((UpgradeHttpException) e).getNewVersionName(), ((UpgradeHttpException) e).getDownloadUrl());
-//                        return;
-//                    }
-//
-//                    view.setEnabled(true);
-//                    ToastUtils.showShort("Some error happened, Please try again later.");
-//                }));
+        Api.getRectsEA().register(requestData)
+                .compose(new NetTransformer<>(Api.CONTENTKEY, RiderBean.class))
+                .subscribe(new NetSubscriber<>(bean -> {
+                    view.setEnabled(true);
+                    progressDialog.dismiss();
+
+                    ProfileUtils.saveProfile(bean);
+                    ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
+
+                    openLoginActivity();
+                }, e -> {
+                    progressDialog.dismiss();
+
+                    if (e instanceof UpgradeHttpException) {
+                        Utils.showUpgradeDialog(this, ((UpgradeHttpException) e).getNewVersionName(), ((UpgradeHttpException) e).getDownloadUrl());
+                        return;
+                    }
+
+                    view.setEnabled(true);
+                    ToastUtils.showShort("Some error happened, Please try again later.");
+                }));
     }
 
 
     private void openLoginActivity() {
         progressDialog.dismiss();
-        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 

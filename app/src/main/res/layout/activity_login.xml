@@ -7,6 +7,7 @@
 
     <com.bsmart.pos.rider.base.utils.HeaderView
         android:id="@+id/header"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight">
     </com.bsmart.pos.rider.base.utils.HeaderView>
@@ -54,6 +55,8 @@
 
 
                 <LinearLayout
+                    android:id="@+id/usernameZone"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="32dp"
@@ -86,6 +89,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/passwordZone"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="32dp"
@@ -118,6 +123,7 @@
 
                 <Button
                     android:id="@+id/btnLogin"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="32dp"
@@ -132,6 +138,7 @@
 
                 <TextView
                     android:id="@+id/registerGuide"
+                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

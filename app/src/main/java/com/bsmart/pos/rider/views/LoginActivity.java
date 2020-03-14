@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,9 +18,19 @@ import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseActivity;
 import com.bsmart.pos.rider.base.LocationUtils;
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.api.UpgradeHttpException;
+import com.bsmart.pos.rider.base.api.bean.RiderServerBean;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.base.utils.Utils;
+import com.bsmart.pos.rider.tools.StringUtil;
+import com.google.gson.JsonObject;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -41,7 +52,10 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @BindView(R.id.registerGuide)
     TextView registerGuide;
-
+    @BindView(R.id.usernameZone)
+    LinearLayout usernameZone;
+    @BindView(R.id.passwordZone)
+    LinearLayout passwordZone;
     ProgressDialog progressDialog;
 
     @Override
@@ -53,7 +67,60 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(onLoginListener);
         registerGuide.setOnClickListener(onRegisterGuideListener);
         requestPermissions();
+        checkToken();
+    }
 
+    private void setViewCtrl(int ctrl){
+        header.setVisibility(ctrl);
+        usernameZone.setVisibility(ctrl);
+        passwordZone.setVisibility(ctrl);
+        btnLogin.setVisibility(ctrl);
+        registerGuide.setVisibility(ctrl);
+    }
+
+    private void checkToken(){
+
+        String token = ProfileUtils.getToken();
+
+        if (StringUtil.isNotEmpty(token)){
+
+            Map<String, String> requestData = new HashMap<>();
+            requestData.put("token",token);
+            //start valid token is ok
+            Api.getRectsEA().validate(requestData)
+                    .compose(new NetTransformer<>(JsonObject.class))
+                    .subscribe(new NetSubscriber<>(bean -> {
+
+                                if (null != bean){
+
+                                    if (bean.get("errno").getAsInt()==0){
+
+                                        openMainActivity();
+
+                                    }else{
+
+                                        //需要进行登录
+                                        setViewCtrl(View.VISIBLE);
+                                    }
+
+                                }else{
+                                    setViewCtrl(View.VISIBLE);
+                                    ToastUtils.showShort("Some error happened, Please try again later.");
+                                }
+
+
+
+                            }, e -> {
+                                setViewCtrl(View.VISIBLE);
+                                ToastUtils.showShort("Some error happened, Please try again later.");
+                            }
+                            )
+                    );
+
+
+        }else{
+            setViewCtrl(View.VISIBLE);
+        }
     }
 
     public void requestPermissions() {
@@ -101,33 +168,46 @@ public class LoginActivity extends BaseActivity {
         progressDialog.show();
 
         Map<String, String> requestData = App.getMetaRequestData();
-        requestData.put("officer_id", etUsername.getText().toString());
-        requestData.put("officer_password", etPassword.getText().toString());
+        requestData.put("username", etUsername.getText().toString());
+        requestData.put("password", etPassword.getText().toString());
 
-        //for test
-        openMainActivity();
+        Api.getRectsEA().login(requestData)
+                .compose(new NetTransformer<>(RiderServerBean.class))
+                .subscribe(new NetSubscriber<>(bean -> {
+                            view.setEnabled(true);
+                            progressDialog.dismiss();
 
-//        Api.getRectsEA().login(requestData)
-//                .compose(new NetTransformer<>(LoginBean.class))
-//                .subscribe(new NetSubscriber<>(bean -> {
-//                    view.setEnabled(true);
-//                    progressDialog.dismiss();
-//
-//                    ProfileUtils.saveProfile(bean.profile);
-//                    ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
-//
-//                    openMainActivity();
-//                }, e -> {
-//                    progressDialog.dismiss();
-//
-//                    if (e instanceof UpgradeHttpException) {
-//                        Utils.showUpgradeDialog(this, ((UpgradeHttpException) e).getNewVersionName(), ((UpgradeHttpException) e).getDownloadUrl());
-//                        return;
-//                    }
-//
-//                    view.setEnabled(true);
-//                    ToastUtils.showShort("Some error happened, Please try again later.");
-//                }));
+                            if (null != bean){
+
+                                if (bean.getErrno()==0){
+
+                                    ProfileUtils.saveProfile(bean.getData());
+                                    ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
+                                    openMainActivity();
+
+                                }else{
+                                    ToastUtils.showShort(bean.getErrmsg());
+                                }
+
+                            }else{
+                                ToastUtils.showShort("Some error happened, Please try again later.");
+                            }
+
+
+
+                        }, e -> {
+                            progressDialog.dismiss();
+
+                            if (e instanceof UpgradeHttpException) {
+                                Utils.showUpgradeDialog(this, ((UpgradeHttpException) e).getNewVersionName(), ((UpgradeHttpException) e).getDownloadUrl());
+                                return;
+                            }
+
+                            view.setEnabled(true);
+                            ToastUtils.showShort("Some error happened, Please try again later.");
+                        }
+                        )
+                );
     }
 
 

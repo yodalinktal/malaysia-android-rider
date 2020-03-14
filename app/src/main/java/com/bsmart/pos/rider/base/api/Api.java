@@ -14,6 +14,7 @@ public class Api {
 
     private static OkHttpClient okHttpClient;
     private static RectsEAService rectsEAService;
+    public final static String CONTENTKEY = "data";
 
     static {
         okHttpClient = new OkHttpClient.Builder()
@@ -34,13 +35,9 @@ public class Api {
 
     public static String baseUrl() {
         if (BuildConfig.DEBUG) {
-            return "http://localhost:8080/pos/api/";
+            return "http://192.168.8.165:8080/pos/api/";
         } else {
-            return "http://localhost:8080/pos/api/";
+            return "http://192.168.8.165:8080/pos/api/";
         }
-    }
-
-    public static String mediaUrl() {
-        return "https://new.rects-ea.org/rects-ci/storage/app/";
     }
 }

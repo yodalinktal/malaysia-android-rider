@@ -11,14 +11,23 @@ public class AddressBean {
     public static final String FROM = "from";
     public static final String TO = "to";
 
-    private String zone;
+    private String zone; //GPS定位得到的数据
     private Double lat;
     private Double lon;
-    private String detail;
+    private GEO loc;
+    private String detail;  //输入的具体楼层地址
     private String telephone;
     private String name;
     private String postcode;
     private String type; // form to
+
+    public GEO getLoc() {
+        return loc;
+    }
+
+    public void setLoc(GEO loc) {
+        this.loc = loc;
+    }
 
     @NonNull
     @Override
