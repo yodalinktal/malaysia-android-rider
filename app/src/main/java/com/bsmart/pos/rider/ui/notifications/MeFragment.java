@@ -13,10 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.blankj.utilcode.util.ToastUtils;
+import com.bsmart.pos.rider.BuildConfig;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.BaseQRCodeFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,12 @@ public class MeFragment extends BaseQRCodeFragment {
 
     @BindView(R.id.header)
     HeaderView header;
+
+    @BindView(R.id.txUsername)
+    TextView txUsername;
+
+    @BindView(R.id.versionName)
+    TextView versionName;
 
     @Nullable
     @Override
@@ -47,6 +55,8 @@ public class MeFragment extends BaseQRCodeFragment {
         });
         header.setRightCustomView(customRightView);
 
+        txUsername.setText(ProfileUtils.getUsername());
+        versionName.setText("Version:"+BuildConfig.VERSION_NAME);
         return root;
     }
 

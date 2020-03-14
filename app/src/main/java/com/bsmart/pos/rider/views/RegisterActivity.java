@@ -54,6 +54,7 @@ public class RegisterActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
+        header.setLeft(view->finish());
         header.setTitle(getResources().getString(R.string.title_activity_Register));
         btnRegister.setOnClickListener(onRegisterListener);
 

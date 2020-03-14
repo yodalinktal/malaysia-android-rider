@@ -19,6 +19,7 @@
         android:background="@color/colorAccent"
         >
         <TextView
+            android:id="@+id/txUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mr Rider"
@@ -112,9 +113,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
         <TextView
+            android:id="@+id/versionName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Version 1.0.0"
             android:textSize="20sp"
             android:textColor="@color/textCommentSecond"
             android:layout_centerInParent="true"/>

@@ -87,7 +87,7 @@ public class OrderAcceptedFragment extends BaseFragment {
         to.setLon(116.4105069);
         orderBean.setTo(to);
 
-        orderBean.setCreateTime("2020-02-10 12:00");
+        orderBean.setCreateDate("2020-02-10 12:00");
         orderBean.setStatus("Waiting");
         orderBeanList.add(orderBean);
 

@@ -46,6 +46,18 @@ public class App extends MultiDexApplication {
         return map;
     }
 
+    public static Map<String,Double> getLocationData(){
+
+        if (null != location){
+            HashMap<String,Double> map = new HashMap<>();
+            map.put("latitude",LocationUtils.getInstance(ctx).showLocation().getLatitude());
+            map.put("longitude",LocationUtils.getInstance(ctx).showLocation().getLongitude());
+            return map;
+        }else{
+            return null;
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

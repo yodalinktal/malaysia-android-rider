@@ -34,6 +34,9 @@ public interface RectsEAService {
     @POST("rider/validate")
     Observable<Response<JsonObject>> validate(@FieldMap Map<String, String> meta);
 
+    @FormUrlEncoded
+    @POST("rider/trace/update")
+    Observable<Response<JsonObject>> traceUpdate(@FieldMap Map<String, Object> meta);
 
     @Streaming
     @GET

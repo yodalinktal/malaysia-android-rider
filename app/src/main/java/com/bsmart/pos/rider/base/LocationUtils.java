@@ -16,7 +16,16 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.tools.StringUtil;
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LocationUtils {
 
@@ -82,6 +91,7 @@ public class LocationUtils {
     private void setLocation(Location location) {
         this.location = location;
         String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
+
         Log.d(TAG, address);
     }
 

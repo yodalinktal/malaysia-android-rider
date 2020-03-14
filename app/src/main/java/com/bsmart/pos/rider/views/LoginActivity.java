@@ -212,7 +212,9 @@ public class LoginActivity extends BaseActivity {
 
 
     private void openMainActivity() {
-        progressDialog.dismiss();
+        if (null != progressDialog){
+            progressDialog.dismiss();
+        }
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
