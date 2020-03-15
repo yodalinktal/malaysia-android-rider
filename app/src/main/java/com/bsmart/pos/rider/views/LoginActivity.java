@@ -222,7 +222,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LocationUtils.getInstance(this).removeLocationUpdatesListener();
+        //LocationUtils.getInstance(this).removeLocationUpdatesListener();
     }
 
 }

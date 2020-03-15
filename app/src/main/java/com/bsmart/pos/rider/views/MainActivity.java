@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        checkNewOrder();
+        //checkNewOrder();
     }
 
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             Map<String,Double> requestData = new HashMap<>();
             requestData.put("lat", location.get("latitude"));
             requestData.put("lon", location.get("longitude"));
-            //异步更新地图的附近骑手
+            //附近的订单（状态为waiting)
             Api.getRectsEA().nearby(requestData)
                     .compose(new NetTransformer<>(JsonObject.class))
                     .subscribe(new NetSubscriber<>(bean -> {
@@ -67,12 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
                                         if (null != jsonArray && jsonArray.size()>0){
                                             for (int i=0;i<jsonArray.size();i++) {
-                                                JsonObject riderBean = jsonArray.get(i).getAsJsonObject();
-                                                JsonObject loc = riderBean.getAsJsonObject("loc");
+                                                JsonObject orderBean = jsonArray.get(i).getAsJsonObject();
                                             }
                                         }else{
 
-                                            Log.d("MainActivity","no riders nearby");
+                                            Log.d("MainActivity","no order nearby");
                                         }
 
                                     }else{
