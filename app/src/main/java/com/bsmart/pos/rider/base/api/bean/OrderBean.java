@@ -24,7 +24,7 @@ public class OrderBean {
     private Integer postType;
     private Bitmap qrCode;
     private String status;
-    private String createDate;
+    private String createdDate;
     private Long createdTimestamp;
 
     public String getCustomerId() {
@@ -51,12 +51,12 @@ public class OrderBean {
         this.coordinates = coordinates;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public String getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getCreatedTimestamp() {

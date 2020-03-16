@@ -60,8 +60,8 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         viewHolder.addressFromInfo.setText(orderBean.getFrom().getZone()+" "+orderBean.getFrom().getDetail());
         viewHolder.customerToInfo.setText(orderBean.getTo().getName()+","+orderBean.getTo().getTelephone());
         viewHolder.addressToInfo.setText(orderBean.getTo().getZone()+" "+orderBean.getTo().getDetail());
-        viewHolder.createTime.setText("createTime: "+orderBean.getCreateDate());
-        viewHolder.orderNo.setText("orderNo: "+orderBean.getOrderNo());
+        viewHolder.createTime.setText("createTime: "+orderBean.getCreatedDate());
+        viewHolder.orderNo.setText("tracking num: "+orderBean.getOrderNo());
         viewHolder.pickTime.setText("pickTime: "+orderBean.getPickupTime());
         viewHolder.postType.setText("postType: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
         viewHolder.sizeWeight.setText("sizeWeight: "+ SizeWeightConstant.getInstance().TYPE_ENUM.get(orderBean.getSizeWeight()));

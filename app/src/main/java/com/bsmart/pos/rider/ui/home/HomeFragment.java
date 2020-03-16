@@ -251,7 +251,7 @@ public class HomeFragment extends BaseQRCodeFragment {
             customerToInfo.setText(to.getName()+","+to.getTelephone());
             addressToInfo.setText(to.getZone()+","+to.getDetail());
 
-            createTime.setText(orderBean.getCreateDate());
+            createTime.setText(orderBean.getCreatedDate());
             orderNo.setText(orderBean.getOrderNo());
             pickTime.setText(orderBean.getPickupTime());
             postType.setText(PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
@@ -291,7 +291,7 @@ public class HomeFragment extends BaseQRCodeFragment {
                                                 orderBean.setOrderNo(jsonObject.get("orderNo").getAsString());
                                                 orderBean.setFrom(App.gson.fromJson(jsonObject.get("from"),AddressBean.class));
                                                 orderBean.setTo(App.gson.fromJson(jsonObject.get("to"),AddressBean.class));
-                                                orderBean.setCreateDate(jsonObject.get("createdDate").getAsString());
+                                                orderBean.setCreatedDate(jsonObject.get("createdDate").getAsString());
                                                 orderBean.setPostType(jsonObject.get("postType").getAsInt());
                                                 orderBean.setSizeWeight(jsonObject.get("sizeWeight").getAsInt());
                                                 orderBean.setPickupTime(jsonObject.get("pickupTime").getAsString());

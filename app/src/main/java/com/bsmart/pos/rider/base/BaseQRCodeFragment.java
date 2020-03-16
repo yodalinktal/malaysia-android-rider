@@ -92,27 +92,6 @@ public class BaseQRCodeFragment extends Fragment {
             Log.d("REQ_QR_CONFIRM",null!=data?data.toString():"REQ_QR_CONFIRM");
         }
 
-        if (requestCode == REQ_SEAL_PHOTO_CODE) {
-            Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            String encodedSealPhoto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Log.d("Activation", "Seal photo: " + encodedSealPhoto);
-        }
-
-        if (requestCode == REQ_CARGO_PHOTO_CODE) {
-            Bundle extras = data.getExtras();
-            Bitmap bitmap = (Bitmap) extras.get("data");
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            String encodedCargoPhoto = Base64.encodeToString(byteArray, Base64.DEFAULT);
-            Log.d("Activation", "Cargo photo: " + encodedCargoPhoto);
-        }
     }
 
 
