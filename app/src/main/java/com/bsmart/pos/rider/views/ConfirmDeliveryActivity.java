@@ -1,8 +1,10 @@
 package com.bsmart.pos.rider.views;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +19,17 @@ import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseActivity;
 import com.bsmart.pos.rider.base.BaseQRCodeFragment;
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
 import com.bsmart.pos.rider.base.api.bean.OrderBean;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,10 +65,9 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     @BindView(R.id.tipsSecondTitle)
     TextView tipsSecondTitle;
 
-    @BindView(R.id.etCenterCode)
-    EditText etCenterCode;
-
     private OrderBean orderBean;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,7 +91,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
         }
 
         if (null != orderBean){
-            orderNo.setText("Order No:"+orderBean.getOrderNo());
+            orderNo.setText("Tracking Num:"+orderBean.getOrderNo());
             fromInfo.setText("From:"+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
             toInfo.setText("To:"+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
 
@@ -93,7 +103,6 @@ public class ConfirmDeliveryActivity extends BaseActivity {
             tipsTitle.setText("Scan recognition error!");
             tipsSecondTitle.setText("");
             btnDelivery.setVisibility(View.INVISIBLE);
-            etCenterCode.setVisibility(View.INVISIBLE);
         }
 
 
@@ -102,8 +111,42 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     private View.OnClickListener onDeliveryListener = view -> {
 
         //todo:更新订单状态，然后退出；
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Checking... Please wait.");
+        progressDialog.show();
 
-        finish();
+            Map<String,Object> requestData = new HashMap<>();
+            requestData.put("token", ProfileUtils.getToken());
+            requestData.put("orderNo", orderBean.getOrderNo());
+            //附近的订单（状态为waiting)
+            Api.getRectsEA().orderDelivery(requestData)
+                    .compose(new NetTransformer<>(JsonObject.class))
+                    .subscribe(new NetSubscriber<>(bean -> {
+                        progressDialog.dismiss();
+                                if (null != bean){
+
+                                    Log.d("orderDelivery",bean.toString());
+
+                                    if (bean.get("errno").getAsInt()==0){
+
+                                        finish();
+
+                                    }else{
+                                        Log.e("orderDelivery",bean.get("errmsg").getAsString());
+                                    }
+
+                                }else{
+                                    Log.e("orderDelivery","Some error happened, Please try again later.");
+                                }
+
+                            }, e -> {
+                                progressDialog.dismiss();
+                                Log.e("orderDelivery","Some error happened, Please try again later.");
+                            }
+                            )
+                    );
+
+
 
     };
 

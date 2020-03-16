@@ -75,7 +75,7 @@ public class OrderFragment extends BaseQRCodeFragment {
         header.setTitle(getResources().getString(R.string.title_order));
         View customRightView = LayoutInflater.from(getContext()).inflate(R.layout.action_right, null);
         customRightView.findViewById(R.id.flRefresh).setOnClickListener(v -> {
-
+            performQRCode();
         });
         header.setRightCustomView(customRightView);
 
