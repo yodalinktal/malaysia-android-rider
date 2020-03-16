@@ -34,6 +34,8 @@ import com.bsmart.pos.rider.base.api.bean.OrderBean;
 import com.bsmart.pos.rider.base.api.enums.PostTypeConstant;
 import com.bsmart.pos.rider.base.api.enums.SizeWeightConstant;
 import com.bsmart.pos.rider.base.utils.HeaderView;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.views.MainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -185,6 +187,48 @@ public class HomeFragment extends BaseQRCodeFragment {
             Uri telUri = Uri.parse("tel:"+telephone);
             Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
             startActivity(intent);
+        });
+
+        btnCancel.setOnClickListener(view ->{
+
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.selectTab(2);
+
+        });
+
+        btnAccept.setOnClickListener(view ->{
+
+            String orderNo = orderBean.getOrderNo();
+            Map<String,Object> requestData = new HashMap<>();
+            requestData.put("token", ProfileUtils.getToken());
+            requestData.put("orderNo", orderNo);
+
+            Api.getRectsEA().orderAccept(requestData)
+                    .compose(new NetTransformer<>(JsonObject.class))
+                    .subscribe(new NetSubscriber<>(bean -> {
+
+                                if (null != bean){
+
+                                    Log.d("orderAccept",bean.toString());
+
+                                    if (bean.get("errno").getAsInt()==0){
+                                       MainActivity mainActivity = (MainActivity) getActivity();
+                                       mainActivity.selectTab(1);
+                                    }else{
+                                        Log.e("HomeFragment",bean.get("errmsg").getAsString());
+                                    }
+
+                                }else{
+                                    Log.e("HomeFragment","Some error happened, Please try again later.");
+                                }
+
+                            }, e -> {
+
+                                Log.e("HomeFragment","Some error happened, Please try again later.");
+                            }
+                            )
+                    );
+
         });
 
         checkNewOrder();
