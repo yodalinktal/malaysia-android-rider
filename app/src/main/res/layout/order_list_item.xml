@@ -10,12 +10,13 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/orderNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Center Code: 868996"
-        android:textSize="26sp"
+        android:text="Tracking-Num: 868996"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimary"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentLeft="true"/>
   </RelativeLayout>
 
   <LinearLayout
@@ -153,14 +154,6 @@
           android:layout_height="wrap_content"
           android:padding="2dp"
           android:text="Post Time:2020-02-02 09:00"/>
-
-      <TextView
-          android:id="@+id/orderNo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:padding="2dp"
-          android:textColor="@color/textTitle"
-          android:text="Order NO:98377271823"/>
 
       <TextView
           android:id="@+id/pickTime"

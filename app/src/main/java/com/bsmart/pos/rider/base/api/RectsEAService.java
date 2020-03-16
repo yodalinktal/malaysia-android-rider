@@ -43,6 +43,10 @@ public interface RectsEAService {
     @POST("rider/order/nearby")
     Observable<Response<JsonObject>> nearby(@FieldMap Map<String, Double> meta);
 
+    @FormUrlEncoded
+    @POST("rider/order/list")
+    Observable<Response<JsonObject>> orderList(@FieldMap Map<String, Object> meta);
+
     @Streaming
     @GET
     Call<ResponseBody> downloadFile(Url url);

@@ -127,17 +127,64 @@ public class HomeFragment extends BaseQRCodeFragment {
         });
 
         fromNav.setOnClickListener(view ->{
+            Map<String,Double> currentLocation = App.getLocationData();
+            if (null != currentLocation){
+                AddressBean from = orderBean.getFrom();
 
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?"
-                            + "saddr=36.894154,121.534362"
-                            + "&daddr=39.509805,116.4105069"
-                            +"&avoid=highway"
-                            +"&language=zh-CN")
-            );
-            intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
+                String daddr = from.getLoc().getLat()+","+from.getLoc().getLon();
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?"
+                                + "saddr="+saddr
+                                + "&daddr="+daddr
+                                +"&hl=en")
+                );
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER );
+                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                startActivity(intent);
+            }else {
+                ToastUtils.showShort("Location is failed!");
+            }
+        });
+
+        callFromInfo.setOnClickListener(view ->{
+            AddressBean from = orderBean.getFrom();
+            String telephone = from.getTelephone();
+            Uri telUri = Uri.parse("tel:"+telephone);
+            Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
             startActivity(intent);
+        });
 
+
+        toNav.setOnClickListener(view ->{
+            Map<String,Double> currentLocation = App.getLocationData();
+            if (null != currentLocation){
+                AddressBean to = orderBean.getTo();
+
+                String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
+                String daddr = to.getLoc().getLat()+","+to.getLoc().getLon();
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?"
+                                + "saddr="+saddr
+                                + "&daddr="+daddr
+                                +"&hl=en")
+                );
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER );
+                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                startActivity(intent);
+            }else {
+                ToastUtils.showShort("Location is failed!");
+            }
+        });
+
+        callToInfo.setOnClickListener(view ->{
+            AddressBean to = orderBean.getTo();
+            String telephone = to.getTelephone();
+            Uri telUri = Uri.parse("tel:"+telephone);
+            Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
+            startActivity(intent);
         });
 
         checkNewOrder();
@@ -208,7 +255,7 @@ public class HomeFragment extends BaseQRCodeFragment {
                                                 break;
                                             }
                                         }else{
-
+                                            updateViews();
                                             Log.d("HomeFragment","no order nearby");
                                         }
 

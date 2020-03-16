@@ -32,6 +32,22 @@ import butterknife.Unbinder;
 
 public class OrderFragment extends BaseQRCodeFragment {
 
+    /**
+     * UNPAID(0,"unpaid"),
+     *     WAITING(1,"Waiting"),
+     *     ACCEPTED(2,"Accepted"),
+     *     DELIVERING(3,"Delivering"),
+     *     FINISHED(4,"Finished"),
+     *     PAYMENTFAILED(98,"PaymentFailed"),
+     *     CANCELED(99,"Canceled");
+     */
+    public final static Integer STATUS_WAITING = 1;
+    public final static Integer STATUS_ACCEPTED = 2;
+    public final static Integer STATUS_DELIVERING = 3;
+    public final static Integer STATUS_FINISHED = 4;
+    public final static Integer STATUS_CANCELED = 99;
+
+
     private OrderViewModel orderViewModel;
     @BindView(R.id.header) HeaderView header;
     @BindView(R.id.tabLayout)
