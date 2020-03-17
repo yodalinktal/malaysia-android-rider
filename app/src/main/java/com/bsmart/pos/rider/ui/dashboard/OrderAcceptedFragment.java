@@ -68,6 +68,11 @@ public class OrderAcceptedFragment extends BaseFragment {
         unbinder.unbind();
     }
 
+    public void refresh(){
+        orderBeanList.clear();
+        initOrderBeanList();
+    }
+
     private void initOrderBeanList(){
 
         String token = ProfileUtils.getToken();

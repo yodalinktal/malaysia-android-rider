@@ -58,6 +58,17 @@ public class OrderFinishedFragment extends BaseFragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("OrderFinishedFragment","onResume");
+    }
+
+    public void refresh(){
+        orderBeanList.clear();
+        initOrderBeanList();
+    }
+
     private void initOrderBeanList(){
 
         String token = ProfileUtils.getToken();

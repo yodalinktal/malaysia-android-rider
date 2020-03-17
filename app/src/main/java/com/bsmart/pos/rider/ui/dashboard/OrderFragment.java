@@ -136,6 +136,21 @@ public class OrderFragment extends BaseQRCodeFragment {
 
         @Override
         public void onPageSelected(int position) {
+
+            switch (position) {
+                case 0:
+                    OrderAcceptedFragment orderAcceptedFragment= (OrderAcceptedFragment)getItem(position);
+                    orderAcceptedFragment.refresh();
+                case 1:
+                    OrderDeliveringFragment orderDeliveringFragment= (OrderDeliveringFragment)getItem(position);
+                    orderDeliveringFragment.refresh();
+                case 2:
+                   OrderFinishedFragment orderFinishedFragment= (OrderFinishedFragment)getItem(position);
+                   orderFinishedFragment.refresh();
+                default:
+                    ;
+            }
+
         }
 
         @Override

@@ -58,6 +58,11 @@ public class OrderDeliveringFragment extends BaseFragment {
         return rootView;
     }
 
+    public void refresh(){
+        orderBeanList.clear();
+        initOrderBeanList();
+    }
+
     private void initOrderBeanList(){
 
         String token = ProfileUtils.getToken();
