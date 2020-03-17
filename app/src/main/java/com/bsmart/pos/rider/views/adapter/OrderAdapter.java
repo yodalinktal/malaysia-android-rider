@@ -81,9 +81,8 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
                     progressDialog = new ProgressDialog(getContext());
                     progressDialog.setMessage("Checking... Please wait.");
                     progressDialog.show();
-                    String orderNo = orderBean.getOrderNo();
-                    deliveryOrder(orderNo, OrderAdapter.this);
-                    progressDialog.dismiss();
+                    deliveryOrder(orderBean, OrderAdapter.this);
+
                 }
             });
         }else{
@@ -105,7 +104,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         return view;
     }
 
-    private void deliveryOrder(String orderNo,OrderAdapter orderAdapter){
+    private void deliveryOrder(final OrderBean orderBean,final OrderAdapter orderAdapter){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Info");
@@ -115,18 +114,19 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 Map<String,Object> requestData = new HashMap<>();
-                requestData.put("orderNo", orderNo);
+                requestData.put("orderNo", orderBean.getOrderNo());
                 requestData.put("token", ProfileUtils.getToken());
                 //附近的订单（状态为waiting)
                 Api.getRectsEA().orderFinished(requestData)
                         .compose(new NetTransformer<>(JsonObject.class))
                         .subscribe(new NetSubscriber<>(bean -> {
-
+                            progressDialog.dismiss();
                                     if (null != bean){
 
                                         Log.d("orderFinished",bean.toString());
 
                                         if (bean.get("errno").getAsInt()==0){
+                                            orderAdapter.remove(orderBean);
                                             orderAdapter.notifyDataSetChanged();
                                         }else{
                                             Log.e("OrderFragment",bean.get("errmsg").getAsString());
@@ -137,7 +137,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
                                     }
 
                                 }, e -> {
-
+                                    progressDialog.dismiss();
                                     Log.e("OrderFragment","Some error happened, Please try again later.");
                                 }
                                 )
