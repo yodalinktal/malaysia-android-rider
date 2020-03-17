@@ -69,6 +69,10 @@ public class OrderAcceptedFragment extends BaseFragment {
     }
 
     public void refresh(){
+
+        if (null == orderListView){
+            return;
+        }
         orderBeanList.clear();
         initOrderBeanList();
     }

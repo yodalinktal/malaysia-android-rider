@@ -3,6 +3,8 @@ package com.bsmart.pos.rider.views.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.api.Api;
@@ -66,6 +69,12 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             viewHolder.postType = (TextView) view.findViewById(R.id.postType);
             viewHolder.sizeWeight = (TextView) view.findViewById(R.id.sizeWeight);
             viewHolder.btnOperation = (Button) view.findViewById(R.id.btnOperation);
+
+            viewHolder.callFromInfo = (TextView) view.findViewById(R.id.callFromInfo);
+            viewHolder.callToInfo = (TextView) view.findViewById(R.id.callToInfo);
+            viewHolder.fromNav = (ImageView) view.findViewById(R.id.fromNav);
+            viewHolder.toNav = (ImageView) view.findViewById(R.id.toNav);
+
             view.setTag(viewHolder);
         }else{
             view = convertView;
@@ -90,6 +99,78 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             viewHolder.btnOperation.setOnClickListener(null);
         }
 
+
+        viewHolder.fromNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String,Double> currentLocation = App.getLocationData();
+                if (null != currentLocation){
+                    AddressBean from = orderBean.getFrom();
+                    String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
+                    String daddr = from.getLoc().getLat()+","+from.getLoc().getLon();
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?"
+                                    + "saddr="+saddr
+                                    + "&daddr="+daddr
+                                    +"&hl=en")
+                    );
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER );
+                    intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                    getContext().startActivity(intent);
+                }else{
+                    ToastUtils.showShort("Location is failed!");
+                }
+
+            }
+        });
+
+        viewHolder.toNav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<String,Double> currentLocation = App.getLocationData();
+                if (null != currentLocation){
+                    AddressBean to = orderBean.getTo();
+
+                    String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
+                    String daddr = to.getLoc().getLat()+","+to.getLoc().getLon();
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?"
+                                    + "saddr="+saddr
+                                    + "&daddr="+daddr
+                                    +"&hl=en")
+                    );
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER );
+                    intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
+                    getContext().startActivity(intent);
+                }else {
+                    ToastUtils.showShort("Location is failed!");
+                }
+            }
+        });
+
+        viewHolder.callFromInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddressBean from = orderBean.getFrom();
+                String telephone = from.getTelephone();
+                Uri telUri = Uri.parse("tel:"+telephone);
+                Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
+                getContext().startActivity(intent);
+            }
+        });
+
+        viewHolder.callToInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddressBean to = orderBean.getTo();
+                String telephone = to.getTelephone();
+                Uri telUri = Uri.parse("tel:"+telephone);
+                Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
+                getContext().startActivity(intent);
+            }
+        });
 
         viewHolder.customFromInfo.setText(orderBean.getFrom().getName()+","+orderBean.getFrom().getTelephone());
         viewHolder.addressFromInfo.setText(orderBean.getFrom().getZone()+" "+orderBean.getFrom().getDetail());
@@ -167,6 +248,11 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         TextView postType;
         TextView sizeWeight;
         Button btnOperation;
+
+        TextView callFromInfo;
+        TextView callToInfo;
+        ImageView fromNav;
+        ImageView toNav;
 
     }
 }

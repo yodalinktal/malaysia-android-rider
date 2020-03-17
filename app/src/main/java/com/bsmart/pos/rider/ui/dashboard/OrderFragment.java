@@ -139,14 +139,17 @@ public class OrderFragment extends BaseQRCodeFragment {
 
             switch (position) {
                 case 0:
-                    OrderAcceptedFragment orderAcceptedFragment= (OrderAcceptedFragment)getItem(position);
+                    OrderAcceptedFragment orderAcceptedFragment= (OrderAcceptedFragment)getItem(0);
                     orderAcceptedFragment.refresh();
+                    break;
                 case 1:
-                    OrderDeliveringFragment orderDeliveringFragment= (OrderDeliveringFragment)getItem(position);
+                    OrderDeliveringFragment orderDeliveringFragment= (OrderDeliveringFragment)getItem(1);
                     orderDeliveringFragment.refresh();
+                    break;
                 case 2:
-                   OrderFinishedFragment orderFinishedFragment= (OrderFinishedFragment)getItem(position);
+                   OrderFinishedFragment orderFinishedFragment= (OrderFinishedFragment)getItem(2);
                    orderFinishedFragment.refresh();
+                    break;
                 default:
                     ;
             }
