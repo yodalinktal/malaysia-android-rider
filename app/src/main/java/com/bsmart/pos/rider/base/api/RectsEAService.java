@@ -56,6 +56,10 @@ public interface RectsEAService {
     @POST("rider/order/delivery")
     Observable<Response<JsonObject>> orderDelivery(@FieldMap Map<String, Object> meta);
 
+    @FormUrlEncoded
+    @POST("rider/order/finished")
+    Observable<Response<JsonObject>> orderFinished(@FieldMap Map<String, Object> meta);
+
     @Streaming
     @GET
     Call<ResponseBody> downloadFile(Url url);

@@ -212,6 +212,8 @@ public class HomeFragment extends BaseQRCodeFragment {
                                     Log.d("orderAccept",bean.toString());
 
                                     if (bean.get("errno").getAsInt()==0){
+                                        orderBean = null;
+                                        updateViews();
                                        MainActivity mainActivity = (MainActivity) getActivity();
                                        mainActivity.selectTab(1);
                                     }else{

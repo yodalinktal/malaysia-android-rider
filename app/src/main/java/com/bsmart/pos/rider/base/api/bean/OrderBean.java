@@ -23,7 +23,7 @@ public class OrderBean {
     private Integer payType;
     private Integer postType;
     private Bitmap qrCode;
-    private String status;
+    private Integer status;
     private String createdDate;
     private Long createdTimestamp;
 
@@ -67,11 +67,11 @@ public class OrderBean {
         this.createdTimestamp = createdTimestamp;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

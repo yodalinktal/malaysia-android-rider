@@ -180,7 +180,20 @@
           android:text="Size Weight: 0.1~5kg"/>
 
     </LinearLayout>
-
+    <Button
+        android:id="@+id/btnOperation"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/login_button"
+        android:gravity="center"
+        android:text="Delivery to Center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
   </LinearLayout>
 
 </LinearLayout>

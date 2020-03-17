@@ -1,21 +1,37 @@
 package com.bsmart.pos.rider.views.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 import com.bsmart.pos.rider.R;
+import com.bsmart.pos.rider.base.App;
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.api.bean.AddressBean;
 import com.bsmart.pos.rider.base.api.bean.OrderBean;
+import com.bsmart.pos.rider.base.api.enums.OrderStatusConstant;
 import com.bsmart.pos.rider.base.api.enums.PostTypeConstant;
 import com.bsmart.pos.rider.base.api.enums.SizeWeightConstant;
+import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: yoda
@@ -24,6 +40,7 @@ import java.util.List;
 public class OrderAdapter extends ArrayAdapter<OrderBean> {
 
     private int resourceId;
+    ProgressDialog progressDialog;
 
     public OrderAdapter(@NonNull Context context, int resource, @NonNull List<OrderBean> objects) {
         super(context, resource, objects);
@@ -48,11 +65,30 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             viewHolder.pickTime = (TextView) view.findViewById(R.id.pickTime);
             viewHolder.postType = (TextView) view.findViewById(R.id.postType);
             viewHolder.sizeWeight = (TextView) view.findViewById(R.id.sizeWeight);
+            viewHolder.btnOperation = (Button) view.findViewById(R.id.btnOperation);
             view.setTag(viewHolder);
         }else{
             view = convertView;
             // 取出缓存
             viewHolder = (ViewHolder) view.getTag();
+        }
+
+        if (orderBean.getStatus().equals(OrderStatusConstant.DELIVERING)){
+            viewHolder.btnOperation.setVisibility(View.VISIBLE);
+            viewHolder.btnOperation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setMessage("Checking... Please wait.");
+                    progressDialog.show();
+                    String orderNo = orderBean.getOrderNo();
+                    deliveryOrder(orderNo, OrderAdapter.this);
+                    progressDialog.dismiss();
+                }
+            });
+        }else{
+            viewHolder.btnOperation.setVisibility(View.GONE);
+            viewHolder.btnOperation.setOnClickListener(null);
         }
 
 
@@ -69,6 +105,55 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         return view;
     }
 
+    private void deliveryOrder(String orderNo,OrderAdapter orderAdapter){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Info");
+        builder.setMessage("Are you sure you arrived at the center?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                Map<String,Object> requestData = new HashMap<>();
+                requestData.put("orderNo", orderNo);
+                requestData.put("token", ProfileUtils.getToken());
+                //附近的订单（状态为waiting)
+                Api.getRectsEA().orderFinished(requestData)
+                        .compose(new NetTransformer<>(JsonObject.class))
+                        .subscribe(new NetSubscriber<>(bean -> {
+
+                                    if (null != bean){
+
+                                        Log.d("orderFinished",bean.toString());
+
+                                        if (bean.get("errno").getAsInt()==0){
+                                            orderAdapter.notifyDataSetChanged();
+                                        }else{
+                                            Log.e("OrderFragment",bean.get("errmsg").getAsString());
+                                        }
+
+                                    }else{
+                                        Log.e("OrderFragment","Some error happened, Please try again later.");
+                                    }
+
+                                }, e -> {
+
+                                    Log.e("OrderFragment","Some error happened, Please try again later.");
+                                }
+                                )
+                        );
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        builder.show();
+    }
+
     // 内部类
     class ViewHolder{
 
@@ -81,6 +166,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         TextView pickTime;
         TextView postType;
         TextView sizeWeight;
+        Button btnOperation;
 
     }
 }
