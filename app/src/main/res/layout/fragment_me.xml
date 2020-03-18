@@ -28,8 +28,10 @@
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/aboutZone"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
@@ -57,7 +59,6 @@
 
     <RelativeLayout
         android:id="@+id/changeZone"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"

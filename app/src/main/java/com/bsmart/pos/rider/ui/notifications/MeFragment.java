@@ -1,6 +1,7 @@
 package com.bsmart.pos.rider.ui.notifications;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.BaseQRCodeFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.views.ChangePasswordActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,9 @@ public class MeFragment extends BaseQRCodeFragment {
 
     @BindView(R.id.logoutZone)
     RelativeLayout logoutZone;
+
+    @BindView(R.id.changeZone)
+    RelativeLayout changeZone;
 
     @Nullable
     @Override
@@ -83,6 +88,12 @@ public class MeFragment extends BaseQRCodeFragment {
                 }
             });
             builder.show();
+        });
+
+        changeZone.setOnClickListener(view ->{
+
+            Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+            startActivity(intent);
         });
 
         return root;
