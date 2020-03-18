@@ -1,13 +1,16 @@
 package com.bsmart.pos.rider.ui.notifications;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -15,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.BuildConfig;
 import com.bsmart.pos.rider.R;
+import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseFragment;
 import com.bsmart.pos.rider.base.BaseQRCodeFragment;
 import com.bsmart.pos.rider.base.utils.HeaderView;
@@ -38,6 +42,9 @@ public class MeFragment extends BaseQRCodeFragment {
     @BindView(R.id.versionName)
     TextView versionName;
 
+    @BindView(R.id.logoutZone)
+    RelativeLayout logoutZone;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,6 +64,27 @@ public class MeFragment extends BaseQRCodeFragment {
 
         txUsername.setText(ProfileUtils.getUsername());
         versionName.setText("Version:"+BuildConfig.VERSION_NAME);
+
+        logoutZone.setOnClickListener(view ->{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("Confirm");
+            builder.setMessage("Are you sure Logout?");
+            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //todo:
+                    App.exit();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            builder.show();
+        });
+
         return root;
     }
 

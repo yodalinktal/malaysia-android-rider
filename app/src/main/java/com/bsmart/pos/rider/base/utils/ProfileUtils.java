@@ -37,9 +37,10 @@ public class ProfileUtils {
      * todo: update
      */
     public static void removeSharePreference() {
-        SPUtils.getInstance().remove(PROFILE);
-        SPUtils.getInstance().remove(USERNAME);
-        SPUtils.getInstance().remove(PASSWORD);
+        SPUtils.getInstance().clear(true);
+//        SPUtils.getInstance().remove(PROFILE);
+//        SPUtils.getInstance().remove(USERNAME);
+//        SPUtils.getInstance().remove(PASSWORD);
     }
 
     public static RiderBean getRider() {

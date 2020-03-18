@@ -57,6 +57,7 @@
 
     <RelativeLayout
         android:id="@+id/changeZone"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
@@ -116,7 +117,7 @@
             android:id="@+id/versionName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="10sp"
             android:textColor="@color/textCommentSecond"
             android:layout_centerInParent="true"/>
     </RelativeLayout>

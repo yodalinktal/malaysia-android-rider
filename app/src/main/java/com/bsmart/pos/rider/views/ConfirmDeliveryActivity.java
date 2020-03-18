@@ -73,6 +73,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        App.addActivity(this);
         setContentView(R.layout.activity_confirm_delivery);
         ButterKnife.bind(this);
         header.setTitle(getResources().getString(R.string.title_activity_Delivery));
