@@ -35,9 +35,9 @@ public class Api {
 
     public static String baseUrl() {
         if (BuildConfig.DEBUG) {
-            return "http://192.168.8.165:8080/pos/api/";
+            return "http://47.254.215.143/pos/api/";
         } else {
-            return "http://192.168.8.165:8080/pos/api/";
+            return "http://47.254.215.143/pos/api/";
         }
     }
 }
