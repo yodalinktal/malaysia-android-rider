@@ -87,9 +87,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             viewHolder.btnOperation.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    progressDialog = new ProgressDialog(getContext());
-                    progressDialog.setMessage("Checking... Please wait.");
-                    progressDialog.show();
+
                     deliveryOrder(orderBean, OrderAdapter.this);
 
                 }
@@ -193,7 +191,11 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                progressDialog = new ProgressDialog(getContext());
+                progressDialog.setMessage("Processing... Please wait.");
+                progressDialog.setCancelable(false);
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 Map<String,Object> requestData = new HashMap<>();
                 requestData.put("orderNo", orderBean.getOrderNo());
                 requestData.put("token", ProfileUtils.getToken());

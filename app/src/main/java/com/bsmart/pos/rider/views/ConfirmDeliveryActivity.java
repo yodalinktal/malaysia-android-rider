@@ -113,7 +113,9 @@ public class ConfirmDeliveryActivity extends BaseActivity {
 
         //todo:更新订单状态，然后退出；
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Checking... Please wait.");
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Processing... Please wait.");
         progressDialog.show();
 
             Map<String,Object> requestData = new HashMap<>();

@@ -1,6 +1,7 @@
 package com.bsmart.pos.rider.ui.home;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -103,6 +104,7 @@ public class HomeFragment extends BaseQRCodeFragment {
     CardView orderZone;
 
     private OrderBean orderBean;
+    ProgressDialog progressDialog;
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -198,6 +200,11 @@ public class HomeFragment extends BaseQRCodeFragment {
 
         btnAccept.setOnClickListener(view ->{
 
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Processing... Please wait.");
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
             String orderNo = orderBean.getOrderNo();
             Map<String,Object> requestData = new HashMap<>();
             requestData.put("token", ProfileUtils.getToken());
@@ -206,7 +213,7 @@ public class HomeFragment extends BaseQRCodeFragment {
             Api.getRectsEA().orderAccept(requestData)
                     .compose(new NetTransformer<>(JsonObject.class))
                     .subscribe(new NetSubscriber<>(bean -> {
-
+                        progressDialog.dismiss();
                                 if (null != bean){
 
                                     Log.d("orderAccept",bean.toString());
@@ -225,7 +232,7 @@ public class HomeFragment extends BaseQRCodeFragment {
                                 }
 
                             }, e -> {
-
+                        progressDialog.dismiss();
                                 Log.e("HomeFragment","Some error happened, Please try again later.");
                             }
                             )
@@ -247,17 +254,17 @@ public class HomeFragment extends BaseQRCodeFragment {
 
             AddressBean from = orderBean.getFrom();
             customFromInfo.setText(from.getName()+","+from.getTelephone());
-            addressFromInfo.setText(from.getZone()+","+from.getDetail());
+            addressFromInfo.setText(from.getPostcode()+","+from.getZone()+","+from.getDetail());
 
             AddressBean to = orderBean.getTo();
             customerToInfo.setText(to.getName()+","+to.getTelephone());
-            addressToInfo.setText(to.getZone()+","+to.getDetail());
+            addressToInfo.setText(to.getPostcode()+","+to.getZone()+","+to.getDetail());
 
-            createTime.setText(orderBean.getCreatedDate());
-            orderNo.setText(orderBean.getOrderNo());
-            pickTime.setText(orderBean.getPickupTime());
-            postType.setText(PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-            sizeWeight.setText(orderBean.getSizeWeight().toString());
+            createTime.setText("Create Time:"+orderBean.getCreatedDate());
+            orderNo.setText("Tracking Num:"+orderBean.getOrderNo());
+            pickTime.setText("Pickup Time"+orderBean.getPickupTime());
+            postType.setText("Post Type"+PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
+            sizeWeight.setText("Size Weight:"+orderBean.getSizeWeight().toString()+"KG");
 
         }else{
             text_home.setText("Have no order nearby");
