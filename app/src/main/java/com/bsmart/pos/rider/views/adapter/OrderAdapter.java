@@ -171,14 +171,14 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         });
 
         viewHolder.customFromInfo.setText(orderBean.getFrom().getName()+","+orderBean.getFrom().getTelephone());
-        viewHolder.addressFromInfo.setText(orderBean.getFrom().getZone()+" "+orderBean.getFrom().getDetail());
+        viewHolder.addressFromInfo.setText(orderBean.getFrom().getPostcode()+","+orderBean.getFrom().getZone()+","+orderBean.getFrom().getDetail());
         viewHolder.customerToInfo.setText(orderBean.getTo().getName()+","+orderBean.getTo().getTelephone());
-        viewHolder.addressToInfo.setText(orderBean.getTo().getZone()+" "+orderBean.getTo().getDetail());
-        viewHolder.createTime.setText("createTime: "+orderBean.getCreatedDate());
-        viewHolder.orderNo.setText("tracking num: "+orderBean.getOrderNo());
-        viewHolder.pickTime.setText("pickTime: "+orderBean.getPickupTime());
-        viewHolder.postType.setText("postType: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-        viewHolder.sizeWeight.setText("sizeWeight: "+ orderBean.getSizeWeight().toString());
+        viewHolder.addressToInfo.setText(orderBean.getTo().getPostcode()+","+orderBean.getTo().getZone()+","+orderBean.getTo().getDetail());
+        viewHolder.createTime.setText("CreateTime: "+orderBean.getCreatedDate());
+        viewHolder.orderNo.setText("Tracking Num: "+orderBean.getOrderNo());
+        viewHolder.pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
+        viewHolder.postType.setText("Post Type: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
+        viewHolder.sizeWeight.setText("Size Weight: "+ orderBean.getSizeWeight().toString()+"KG");
 
         return view;
     }

@@ -260,11 +260,11 @@ public class HomeFragment extends BaseQRCodeFragment {
             customerToInfo.setText(to.getName()+","+to.getTelephone());
             addressToInfo.setText(to.getPostcode()+","+to.getZone()+","+to.getDetail());
 
-            createTime.setText("Create Time:"+orderBean.getCreatedDate());
-            orderNo.setText("Tracking Num:"+orderBean.getOrderNo());
-            pickTime.setText("Pickup Time"+orderBean.getPickupTime());
-            postType.setText("Post Type"+PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-            sizeWeight.setText("Size Weight:"+orderBean.getSizeWeight().toString()+"KG");
+            createTime.setText("Create Time: "+orderBean.getCreatedDate());
+            orderNo.setText("Tracking Num: "+orderBean.getOrderNo());
+            pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
+            postType.setText("Post Type: "+PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
+            sizeWeight.setText("Size Weight: "+orderBean.getSizeWeight().toString()+"KG");
 
         }else{
             text_home.setText("Have no order nearby");
