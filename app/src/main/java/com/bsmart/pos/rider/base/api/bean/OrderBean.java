@@ -18,7 +18,7 @@ public class OrderBean {
     private Double[] coordinates;
     private AddressBean to;
     private Integer amount;
-    private Integer sizeWeight;
+    private Double sizeWeight;
     private String pickupTime;
     private Integer payType;
     private Integer postType;
@@ -131,11 +131,11 @@ public class OrderBean {
         this.amount = amount;
     }
 
-    public Integer getSizeWeight() {
+    public Double getSizeWeight() {
         return sizeWeight;
     }
 
-    public void setSizeWeight(Integer sizeWeight) {
+    public void setSizeWeight(Double sizeWeight) {
         this.sizeWeight = sizeWeight;
     }
 

@@ -180,7 +180,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         viewHolder.orderNo.setText("tracking num: "+orderBean.getOrderNo());
         viewHolder.pickTime.setText("pickTime: "+orderBean.getPickupTime());
         viewHolder.postType.setText("postType: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-        viewHolder.sizeWeight.setText("sizeWeight: "+ SizeWeightConstant.getInstance().TYPE_ENUM.get(orderBean.getSizeWeight()));
+        viewHolder.sizeWeight.setText("sizeWeight: "+ orderBean.getSizeWeight().toString());
 
         return view;
     }

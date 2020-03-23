@@ -257,7 +257,7 @@ public class HomeFragment extends BaseQRCodeFragment {
             orderNo.setText(orderBean.getOrderNo());
             pickTime.setText(orderBean.getPickupTime());
             postType.setText(PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-            sizeWeight.setText(SizeWeightConstant.getInstance().TYPE_ENUM.get(orderBean.getSizeWeight()));
+            sizeWeight.setText(orderBean.getSizeWeight().toString());
 
         }else{
             text_home.setText("Have no order nearby");
@@ -295,7 +295,7 @@ public class HomeFragment extends BaseQRCodeFragment {
                                                 orderBean.setTo(App.gson.fromJson(jsonObject.get("to"),AddressBean.class));
                                                 orderBean.setCreatedDate(jsonObject.get("createdDate").getAsString());
                                                 orderBean.setPostType(jsonObject.get("postType").getAsInt());
-                                                orderBean.setSizeWeight(jsonObject.get("sizeWeight").getAsInt());
+                                                orderBean.setSizeWeight(jsonObject.get("sizeWeight").getAsDouble());
                                                 orderBean.setPickupTime(jsonObject.get("pickupTime").getAsString());
                                                 updateViews();
                                                 break;
