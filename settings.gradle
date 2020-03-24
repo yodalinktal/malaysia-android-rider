@@ -1,2 +1,2 @@
 rootProject.name='POSRider'
-include ':app'
+include ':rider'

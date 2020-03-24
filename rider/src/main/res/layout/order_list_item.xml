@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/orderNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tracking-Num: 868996"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentLeft="true"/>
+  </RelativeLayout>
+
+  <LinearLayout
+      android:id="@+id/fromZone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/customFromInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="18sp"
+          android:textColor="@color/textTitle"
+          android:text="customer,telephone"
+          android:layout_alignParentTop="true"/>
+
+      <TextView
+          android:id="@+id/callFromInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:text="call"
+          android:textSize="18sp"
+          android:textColor="@color/colorPrimary"
+          android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/addressFromInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:layout_marginRight="40dp"
+          android:text="Axis Business Campus,No 13A 13B Jalan 225,Section 51A, Petaling Jaya,46100 Selangor."
+          />
+      <ImageView
+          android:id="@+id/fromNav"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@mipmap/icon_nav"
+          android:padding="5dp"
+          android:layout_alignParentRight="true"
+          />
+
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_marginTop="2dp"
+      android:layout_height="1dp"
+      android:background="@color/bgDivider"></View>
+
+  <LinearLayout
+      android:id="@+id/toZone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <TextView
+          android:id="@+id/customerToInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="18sp"
+          android:textColor="@color/textTitle"
+          android:text="to,telephone"
+          android:layout_alignParentTop="true"/>
+
+      <TextView
+          android:id="@+id/callToInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:padding="5dp"
+          android:text="call"
+          android:textColor="@color/colorPrimary"
+          android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/addressToInfo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:layout_marginRight="40dp"
+          android:text="Axis Business Campus,No 13A 13B Jalan 225,Section 51A, Petaling Jaya,46100 Selangor." />
+
+      <ImageView
+          android:id="@+id/toNav"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:src="@mipmap/icon_nav"
+          android:padding="5dp"
+          android:layout_centerInParent="true"
+          android:layout_alignParentRight="true"
+          />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/addressToZone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="60dp"
+        android:layout_alignParentTop="true">
+
+      <TextView
+          android:id="@+id/createTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:text="Post Time:2020-02-02 09:00"/>
+
+      <TextView
+          android:id="@+id/pickTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:textColor="@color/textTitle"
+          android:text="Pick Time:2020-02-02 10:00"/>
+
+      <TextView
+          android:id="@+id/postType"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:textColor="@color/textTitle"
+          android:text="Post Type:File"/>
+
+      <TextView
+          android:id="@+id/sizeWeight"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:textColor="@color/textTitle"
+          android:text="Size Weight: 0.1~5kg"/>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnOperation"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/login_button"
+        android:gravity="center"
+        android:text="Delivery to Center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+  </LinearLayout>
+
+</LinearLayout>
