@@ -21,6 +21,7 @@ import com.bsmart.pos.rider.base.api.UpgradeHttpException;
 import com.bsmart.pos.rider.base.api.bean.RiderBean;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.base.utils.ToolUtils;
 import com.bsmart.pos.rider.base.utils.Utils;
 
 import java.util.HashMap;
@@ -40,6 +41,8 @@ public class RegisterActivity extends BaseActivity {
     HeaderView header;
     @BindView(R.id.etUsername)
     EditText etUsername;
+    @BindView(R.id.etEmail)
+    EditText etEmail;
     @BindView(R.id.etPassword)
     EditText etPassword;
     @BindView(R.id.etConfirmPassword)
@@ -73,6 +76,17 @@ public class RegisterActivity extends BaseActivity {
             view.setEnabled(true);
             return;
         }
+
+        if (TextUtils.isEmpty(etEmail.getText())) {
+            ToastUtils.showShort("Email must not be empty");
+            view.setEnabled(true);
+            return;
+        }else if(!ToolUtils.isEmailValid(etEmail.getText().toString())){
+            ToastUtils.showShort("Email Invalid");
+            view.setEnabled(true);
+            return;
+        }
+
         if (TextUtils.isEmpty(etPassword.getText())) {
             ToastUtils.showShort("Password must not be empty");
             view.setEnabled(true);
