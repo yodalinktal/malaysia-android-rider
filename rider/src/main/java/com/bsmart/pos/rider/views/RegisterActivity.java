@@ -106,6 +106,7 @@ public class RegisterActivity extends BaseActivity {
         Map<String, String> requestData = new HashMap<>();
         requestData.put("username", etUsername.getText().toString());
         requestData.put("password", etPassword.getText().toString());
+        requestData.put("email", etEmail.getText().toString());
         requestData.put("confirmPassword", etConfirmPassword.getText().toString());
 
         //for test

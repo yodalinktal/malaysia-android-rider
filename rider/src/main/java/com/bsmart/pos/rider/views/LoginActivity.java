@@ -52,6 +52,8 @@ public class LoginActivity extends BaseActivity {
     Button btnLogin;
     @BindView(R.id.registerGuide)
     TextView registerGuide;
+    @BindView(R.id.resetGuide)
+    TextView resetGuide;
     @BindView(R.id.usernameZone)
     LinearLayout usernameZone;
     @BindView(R.id.passwordZone)
@@ -66,6 +68,7 @@ public class LoginActivity extends BaseActivity {
         header.setTitle(getResources().getString(R.string.title_activity_Login));
         btnLogin.setOnClickListener(onLoginListener);
         registerGuide.setOnClickListener(onRegisterGuideListener);
+        resetGuide.setOnClickListener(onResetListener);
         requestPermissions();
         checkToken();
     }
@@ -76,6 +79,7 @@ public class LoginActivity extends BaseActivity {
         passwordZone.setVisibility(ctrl);
         btnLogin.setVisibility(ctrl);
         registerGuide.setVisibility(ctrl);
+        resetGuide.setVisibility(ctrl);
     }
 
     private void checkToken(){
@@ -133,6 +137,11 @@ public class LoginActivity extends BaseActivity {
 
     private View.OnClickListener onRegisterGuideListener = view -> {
         Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+    };
+
+    private View.OnClickListener onResetListener = view -> {
+        Intent intent = new Intent(this,ResetPasswordActivity.class);
         startActivity(intent);
     };
 

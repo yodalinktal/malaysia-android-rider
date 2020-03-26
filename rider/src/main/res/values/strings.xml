@@ -4,11 +4,13 @@
     <string name="title_order">Order</string>
     <string name="title_me">Me</string>
     <string name="pages_text_Register_Guide">No account yet? Click here to register</string>
+    <string name="pages_text_Reset_Guide">Forget password? Click here to reset</string>
     <string name="title_activity_maps">POS</string>
     <string name="title_activity_Address">Address</string>
     <string name="title_activity_Login">Login</string>
     <string name="title_activity_Register">Register</string>
     <string name="title_activity_reset_password">Reset Password</string>
+    <string name="title_activity_forget_password">Forget Password</string>
     <string name="title_activity_Delivery">Confirm Delivery</string>
     <string name="title_activity_Check_Order">Check Order</string>
     <string name="title_activity_Payment">Order Payment</string>
