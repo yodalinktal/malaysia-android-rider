@@ -23,6 +23,7 @@ import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
 import com.bsmart.pos.rider.base.utils.ToolUtils;
 import com.bsmart.pos.rider.base.utils.Utils;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -113,15 +114,24 @@ public class RegisterActivity extends BaseActivity {
         //openLoginActivity();
 
         Api.getRectsEA().register(requestData)
-                .compose(new NetTransformer<>(Api.CONTENTKEY, RiderBean.class))
+                .compose(new NetTransformer<>(JsonObject.class))
                 .subscribe(new NetSubscriber<>(bean -> {
                     view.setEnabled(true);
                     progressDialog.dismiss();
 
-                    ProfileUtils.saveProfile(bean);
-                    ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
+                    if (null != bean){
+                        if (bean.get("errno").getAsInt()==0){
+                            ProfileUtils.saveProfile(App.gson.fromJson(bean.get("data"),RiderBean.class));
+                            ProfileUtils.saveIdAndPassword(etUsername.getText().toString(), etPassword.getText().toString());
+                            openLoginActivity();
+                        }else{
+                            ToastUtils.showShort(bean.get("errmsg").getAsString());
+                        }
 
-                    openLoginActivity();
+                    }else{
+                        ToastUtils.showShort("Some error happened, Please try again later.");
+                    }
+
                 }, e -> {
                     progressDialog.dismiss();
 

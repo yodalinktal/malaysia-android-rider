@@ -1,7 +1,7 @@
 package com.bsmart.pos.rider.base.api;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-
+import com.bsmart.pos.rider.BuildConfig;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -33,11 +33,10 @@ public class Api {
     }
 
     public static String baseUrl() {
-//        if (BuildConfig.DEBUG) {
-//            return "http://47.254.215.143/pos/api/";
-//        } else {
-//            return "http://47.254.215.143/pos/api/";
-//        }
-        return "http://47.254.215.143/pos/api/";
+        if (BuildConfig.DEBUG) {
+            return "http://192.168.8.165:8080/pos/api/";
+        } else {
+            return "http://47.254.215.143/pos/api/";
+        }
     }
 }

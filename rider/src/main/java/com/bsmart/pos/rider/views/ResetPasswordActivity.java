@@ -35,6 +35,8 @@ public class ResetPasswordActivity extends BaseActivity {
 
     @BindView(R.id.header)
     HeaderView header;
+    @BindView(R.id.etUsername)
+    EditText etUsername;
     @BindView(R.id.etEmail)
     EditText etEmail;
     @BindView(R.id.btnReset)
@@ -62,7 +64,11 @@ public class ResetPasswordActivity extends BaseActivity {
 
     private void performReset(View view) {
         view.setEnabled(false);
-
+        if (TextUtils.isEmpty(etUsername.getText())) {
+            ToastUtils.showShort("Username must not be empty");
+            view.setEnabled(true);
+            return;
+        }
         if (TextUtils.isEmpty(etEmail.getText())) {
             ToastUtils.showShort("Email must not be empty");
             view.setEnabled(true);
@@ -78,8 +84,8 @@ public class ResetPasswordActivity extends BaseActivity {
         progressDialog.show();
 
         Map<String, String> requestData = App.getMetaRequestData();
-        requestData.put("token", ProfileUtils.getToken());
-        requestData.put("email", etEmail.getText().toString());
+        requestData.put("username", etUsername.getText().toString().trim());
+        requestData.put("email", etEmail.getText().toString().trim());
 
         //for test
         //openLoginActivity();
