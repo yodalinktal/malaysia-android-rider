@@ -82,8 +82,8 @@ public class NetSubscriber<T> extends Subscriber<T> {
     } else if (e instanceof GsonException) {
 
     } else if (e instanceof UnknownHostException || e instanceof IOException) {
-      toastMsg = "No Network connectivity.";
-      ExceptionUtils.getINSTANCE().catchError(toastMsg);
+      //toastMsg = "No Network connectivity.";
+      //ExceptionUtils.getINSTANCE().catchError(toastMsg);
 
     } else {
       toastMsg = "Can not connect to server.";
