@@ -130,6 +130,12 @@ public class HomeFragment extends BaseQRCodeFragment {
             }
         });
 
+        //add temp tet
+        text_home.setOnClickListener(view ->{
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.selectTab(1);
+        });
+
         fromNav.setOnClickListener(view ->{
             Map<String,Double> currentLocation = App.getLocationData();
             if (null != currentLocation){

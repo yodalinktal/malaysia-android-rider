@@ -28,6 +28,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView navView;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +41,15 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_order, R.id.navigation_me)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         //checkNewOrder();
     }
 
     public void selectTab(int ItemId){
-
         if (null != navView){
-            navView.setSelectedItemId(ItemId);
+            NavigationUI.onNavDestinationSelected(navView.getMenu().getItem(ItemId),navController);
         }
 
     }
