@@ -88,10 +88,19 @@
                             android:id="@+id/orderNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="OrderNo:"
+                            android:text="Tracking Num:"
                             android:textColor="@color/textTitle"
                             android:textSize="18sp"
                             android:textStyle="bold" />
+
+                        <TextView
+                        android:id="@+id/payInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pay Type:"
+                        android:textColor="@color/textTitle"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/fromInfo"
@@ -99,8 +108,7 @@
                             android:layout_height="wrap_content"
                             android:text="From:"
                             android:textColor="@color/textTitle"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/toInfo"
@@ -108,8 +116,7 @@
                             android:layout_height="wrap_content"
                             android:text="To:"
                             android:textColor="@color/textTitle"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 

@@ -10,7 +10,9 @@ public class TypeConstant {
 
     public final static Integer CreditCard = 0;
     public final static Integer COD = 1;
-    public final static Integer Account = 2;
+    public final static Integer CreditTerm = 2;
+    public final static Integer OnlineBank = 3;
+    public final static Integer EWallet = 4;
 
     private static  TypeConstant typeConstant = null;
 
@@ -19,9 +21,11 @@ public class TypeConstant {
     private TypeConstant(){
 
         TYPE_ENUM = new HashMap<>();
-        TYPE_ENUM.put("Credit term",CreditCard);
+        TYPE_ENUM.put("Credit Card",CreditCard);
         TYPE_ENUM.put("Cash On Delivery (COD)",COD);
-        TYPE_ENUM.put("Account",Account);
+        TYPE_ENUM.put("Credit Term",CreditTerm);
+        TYPE_ENUM.put("Online Bank",OnlineBank);
+        TYPE_ENUM.put("E-Wallet",EWallet);
 
         TYPE_ENUM.put("Merchandise",0);
         TYPE_ENUM.put("Document",1);
