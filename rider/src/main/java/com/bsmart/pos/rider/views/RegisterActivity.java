@@ -48,6 +48,16 @@ public class RegisterActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.etConfirmPassword)
     EditText etConfirmPassword;
+
+    @BindView(R.id.etFullName)
+    EditText etFullName;
+
+    @BindView(R.id.etContactNumber)
+    EditText etContactNumber;
+
+    @BindView(R.id.etVehicle)
+    EditText etVehicle;
+
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
@@ -100,6 +110,30 @@ public class RegisterActivity extends BaseActivity {
             return;
         }
 
+        if (!etPassword.getText().toString().equals(etConfirmPassword.getText().toString())){
+            ToastUtils.showShort("Two passwords are inconsistent");
+            view.setEnabled(true);
+            return;
+        }
+
+        if (TextUtils.isEmpty(etFullName.getText())) {
+            ToastUtils.showShort("Confirm FullName must not be empty");
+            view.setEnabled(true);
+            return;
+        }
+
+        if (TextUtils.isEmpty(etContactNumber.getText())) {
+            ToastUtils.showShort("Confirm Contact Number must not be empty");
+            view.setEnabled(true);
+            return;
+        }
+
+        if (TextUtils.isEmpty(etVehicle.getText())) {
+            ToastUtils.showShort("Confirm Vehicle Plate number must not be empty");
+            view.setEnabled(true);
+            return;
+        }
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Register in... Please wait.");
         progressDialog.show();
@@ -109,6 +143,10 @@ public class RegisterActivity extends BaseActivity {
         requestData.put("password", etPassword.getText().toString());
         requestData.put("email", etEmail.getText().toString());
         requestData.put("confirmPassword", etConfirmPassword.getText().toString());
+
+        requestData.put("fullName", etFullName.getText().toString());
+        requestData.put("contactNumber", etContactNumber.getText().toString());
+        requestData.put("vehicleNumber", etVehicle.getText().toString());
 
         //for test
         //openLoginActivity();
