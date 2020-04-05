@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class TypeConstant {
 
     public final static Integer CreditCard = 0;
-    public final static Integer OnlineBank = 1;
-    public final static Integer EWallet = 2;
+    public final static Integer COD = 1;
+    public final static Integer Account = 2;
 
     private static  TypeConstant typeConstant = null;
 
@@ -19,12 +19,12 @@ public class TypeConstant {
     private TypeConstant(){
 
         TYPE_ENUM = new HashMap<>();
-        TYPE_ENUM.put("Credit Card",CreditCard);
-        TYPE_ENUM.put("Online Banking",OnlineBank);
-        TYPE_ENUM.put("E-Wallet",EWallet);
+        TYPE_ENUM.put("Credit term",CreditCard);
+        TYPE_ENUM.put("Cash On Delivery (COD)",COD);
+        TYPE_ENUM.put("Account",Account);
 
-        TYPE_ENUM.put("File advertisement",0);
-        TYPE_ENUM.put("Certificate ticket",1);
+        TYPE_ENUM.put("Merchandise",0);
+        TYPE_ENUM.put("Document",1);
         TYPE_ENUM.put("Electronic product",2);
         TYPE_ENUM.put("Daily necessities",3);
         TYPE_ENUM.put("Cake",4);

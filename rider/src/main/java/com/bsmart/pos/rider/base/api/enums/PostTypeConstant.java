@@ -22,8 +22,8 @@ public class PostTypeConstant {
     private PostTypeConstant(){
 
         TYPE_ENUM = new HashMap<>();
-        TYPE_ENUM.put(0,"File advertisement");
-        TYPE_ENUM.put(1,"Certificate ticket");
+        TYPE_ENUM.put(0,"Merchandise");
+        TYPE_ENUM.put(1,"Document");
         TYPE_ENUM.put(2,"Electronic product");
         TYPE_ENUM.put(3,"Daily necessities");
         TYPE_ENUM.put(4,"Cake");

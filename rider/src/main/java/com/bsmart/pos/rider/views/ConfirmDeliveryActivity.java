@@ -25,6 +25,7 @@ import com.bsmart.pos.rider.base.api.NetTransformer;
 import com.bsmart.pos.rider.base.api.bean.OrderBean;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.tools.OrderUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -92,12 +93,11 @@ public class ConfirmDeliveryActivity extends BaseActivity {
         }
 
         if (null != orderBean){
-            orderNo.setText("Tracking Num:"+orderBean.getOrderNo());
+            orderNo.setText("Tracking Num:"+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
             fromInfo.setText("From:"+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
             toInfo.setText("To:"+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
-
         }else{
-            orderNo.setText("Data is invalid!");
+            orderNo.setText("Data is invalid,Please Retry Scan QR");
             fromInfo.setText("");
             toInfo.setText("");
             tipsImageView.setImageResource(R.mipmap.icon_caution);

@@ -22,9 +22,9 @@ public class PayConstant {
     private PayConstant(){
 
         TYPE_ENUM = new HashMap<>();
-        TYPE_ENUM.put(0,"Credit Card");
-        TYPE_ENUM.put(1,"Online Banking");
-        TYPE_ENUM.put(2,"E-Wallet");
+        TYPE_ENUM.put(0,"Credit term");
+        TYPE_ENUM.put(1,"Cash On Delivery (COD)");
+        TYPE_ENUM.put(2,"Account");
 
     }
 

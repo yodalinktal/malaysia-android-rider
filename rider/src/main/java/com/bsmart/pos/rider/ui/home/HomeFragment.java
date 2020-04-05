@@ -36,6 +36,7 @@ import com.bsmart.pos.rider.base.api.enums.PostTypeConstant;
 import com.bsmart.pos.rider.base.api.enums.SizeWeightConstant;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.tools.OrderUtil;
 import com.bsmart.pos.rider.views.MainActivity;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -259,18 +260,18 @@ public class HomeFragment extends BaseQRCodeFragment {
             text_home.setText("Have new post order!");
 
             AddressBean from = orderBean.getFrom();
-            customFromInfo.setText(from.getName()+","+from.getTelephone());
-            addressFromInfo.setText(from.getPostcode()+","+from.getZone()+","+from.getDetail());
+            customFromInfo.setText(from.getName()+" "+from.getTelephone());
+            addressFromInfo.setText(from.getPostcode()+","+from.getDetail()+","+from.getCity()+","+from.getState());
 
             AddressBean to = orderBean.getTo();
-            customerToInfo.setText(to.getName()+","+to.getTelephone());
-            addressToInfo.setText(to.getPostcode()+","+to.getZone()+","+to.getDetail());
+            customerToInfo.setText(to.getName()+" "+to.getTelephone());
+            addressToInfo.setText(to.getPostcode()+","+to.getDetail()+","+to.getCity()+","+to.getState());
 
-            createTime.setText("Create Time: "+orderBean.getCreatedDate());
-            orderNo.setText("Tracking Num: "+orderBean.getOrderNo());
+            createTime.setText("Post Time: "+orderBean.getCreatedDate());
+            orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
             pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
             postType.setText("Post Type: "+PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-            sizeWeight.setText("Size Weight: "+orderBean.getSizeWeight().toString()+"KG");
+            sizeWeight.setText("Size Weight: "+orderBean.getSizeWeight()+"kg");
 
         }else{
             text_home.setText("Have no order nearby");

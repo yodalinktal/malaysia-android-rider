@@ -29,6 +29,7 @@ import com.bsmart.pos.rider.base.api.enums.OrderStatusConstant;
 import com.bsmart.pos.rider.base.api.enums.PostTypeConstant;
 import com.bsmart.pos.rider.base.api.enums.SizeWeightConstant;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.tools.OrderUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -170,15 +171,15 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             }
         });
 
-        viewHolder.customFromInfo.setText(orderBean.getFrom().getName()+","+orderBean.getFrom().getTelephone());
-        viewHolder.addressFromInfo.setText(orderBean.getFrom().getPostcode()+","+orderBean.getFrom().getZone()+","+orderBean.getFrom().getDetail());
-        viewHolder.customerToInfo.setText(orderBean.getTo().getName()+","+orderBean.getTo().getTelephone());
-        viewHolder.addressToInfo.setText(orderBean.getTo().getPostcode()+","+orderBean.getTo().getZone()+","+orderBean.getTo().getDetail());
-        viewHolder.createTime.setText("CreateTime: "+orderBean.getCreatedDate());
-        viewHolder.orderNo.setText("Tracking Num: "+orderBean.getOrderNo());
+        viewHolder.customFromInfo.setText(orderBean.getFrom().getName()+" "+orderBean.getFrom().getTelephone());
+        viewHolder.addressFromInfo.setText(orderBean.getFrom().getPostcode()+","+orderBean.getFrom().getDetail()+","+orderBean.getFrom().getCity()+","+orderBean.getFrom().getState());
+        viewHolder.customerToInfo.setText(orderBean.getTo().getName()+" "+orderBean.getTo().getTelephone());
+        viewHolder.addressToInfo.setText(orderBean.getTo().getPostcode()+","+orderBean.getTo().getDetail()+","+orderBean.getTo().getCity()+","+orderBean.getTo().getState());
+        viewHolder.createTime.setText("Post Time: "+orderBean.getCreatedDate());
+        viewHolder.orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
         viewHolder.pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
         viewHolder.postType.setText("Post Type: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-        viewHolder.sizeWeight.setText("Size Weight: "+ orderBean.getSizeWeight().toString()+"KG");
+        viewHolder.sizeWeight.setText("Size Weight: "+ orderBean.getSizeWeight()+"kg");
 
         return view;
     }

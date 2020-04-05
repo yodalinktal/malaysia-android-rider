@@ -15,11 +15,32 @@ public class AddressBean {
     private Double lat;
     private Double lon;
     private GEO loc;
-    private String detail;  //输入的具体楼层地址
+
+    private String detail;      //这个作为地址的详细信息 address
+    private String postcode;
+    private String state;       // 州
+    private String city;        //city
+
     private String telephone;
     private String name;
-    private String postcode;
+
     private String type; // form to
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public GEO getLoc() {
         return loc;

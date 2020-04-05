@@ -21,11 +21,30 @@ public class OrderBean {
     private Double sizeWeight;
     private String pickupTime;
     private Integer payType;
-    private Integer postType;
+    private Integer postType; //Item type
     private Bitmap qrCode;
     private Integer status;
     private String createdDate;
     private Long createdTimestamp;
+
+    private Double contentValue; //内容价值（值多少钱）
+    private String desc; //商品描述
+
+    public Double getContentValue() {
+        return contentValue;
+    }
+
+    public void setContentValue(Double contentValue) {
+        this.contentValue = contentValue;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 
     public String getCustomerId() {
         return customerId;
