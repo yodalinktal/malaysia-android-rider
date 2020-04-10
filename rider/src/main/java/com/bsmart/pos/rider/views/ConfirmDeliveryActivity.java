@@ -97,10 +97,76 @@ public class ConfirmDeliveryActivity extends BaseActivity {
         }
 
         if (null != orderBean){
-            orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
-            payInfo.setText("Pay Type: "+ PayConstant.getInstance().TYPE_ENUM.get(orderBean.getPayType())+", Amount: RM "+(new Double(orderBean.getAmount())/100.00));
-            fromInfo.setText("From: "+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
-            toInfo.setText("To: "+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
+
+            //check order status
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setMessage("Checking... Please wait.");
+            progressDialog.show();
+            Map<String,Object> requestData = new HashMap<>();
+            requestData.put("orderNo", orderBean.getOrderNo());
+
+            Api.getRectsEA().orderStatus(requestData)
+                    .compose(new NetTransformer<>(JsonObject.class))
+                    .subscribe(new NetSubscriber<>(bean -> {
+                                progressDialog.dismiss();
+                                if (null != bean){
+
+                                    Log.d("orderStatus",bean.toString());
+
+                                    if (bean.get("errno").getAsInt()==0){
+
+                                        if(bean.get("data").getAsBoolean()){
+                                            orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
+                                            payInfo.setText("Pay Type: "+ PayConstant.getInstance().TYPE_ENUM.get(orderBean.getPayType())+", Amount: RM "+(new Double(orderBean.getAmount())/100.00));
+                                            fromInfo.setText("From: "+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
+                                            toInfo.setText("To: "+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
+                                        }else{
+                                            orderNo.setText("QR Code is invalid");
+                                            fromInfo.setText("");
+                                            toInfo.setText("");
+                                            tipsImageView.setImageResource(R.mipmap.icon_caution);
+                                            tipsTitle.setText("");
+                                            tipsSecondTitle.setText("");
+                                            btnDelivery.setVisibility(View.INVISIBLE);
+                                        }
+
+                                    }else{
+                                        Log.e("HomeFragment",bean.get("errmsg").getAsString());
+                                        orderNo.setText(bean.get("errmsg").getAsString());
+                                        fromInfo.setText("");
+                                        toInfo.setText("");
+                                        tipsImageView.setImageResource(R.mipmap.icon_caution);
+                                        tipsTitle.setText("");
+                                        tipsSecondTitle.setText("");
+                                        btnDelivery.setVisibility(View.INVISIBLE);
+                                    }
+
+                                }else{
+                                    Log.e("HomeFragment","Some error happened, Please try again later.");
+                                    orderNo.setText("Some error happened, Please try again later.");
+                                    fromInfo.setText("");
+                                    toInfo.setText("");
+                                    tipsImageView.setImageResource(R.mipmap.icon_caution);
+                                    tipsTitle.setText("");
+                                    tipsSecondTitle.setText("");
+                                    btnDelivery.setVisibility(View.INVISIBLE);
+                                }
+
+                            }, e -> {
+                                progressDialog.dismiss();
+                                orderNo.setText("Some error happened, Please try again later.");
+                                fromInfo.setText("");
+                                toInfo.setText("");
+                                tipsImageView.setImageResource(R.mipmap.icon_caution);
+                                tipsTitle.setText("");
+                                tipsSecondTitle.setText("");
+                                btnDelivery.setVisibility(View.INVISIBLE);
+                            }
+                            )
+                    );
+
         }else{
             orderNo.setText("Data is invalid,Please Retry Scan QR");
             fromInfo.setText("");
@@ -117,12 +183,9 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     private View.OnClickListener onDeliveryListener = view -> {
 
         //todo:更新订单状态，然后退出；
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
+
         progressDialog.setMessage("Processing... Please wait.");
         progressDialog.show();
-
             Map<String,Object> requestData = new HashMap<>();
             requestData.put("token", ProfileUtils.getToken());
             requestData.put("orderNo", orderBean.getOrderNo());

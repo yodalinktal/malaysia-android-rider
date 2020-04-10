@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -60,6 +63,11 @@ public class LoginActivity extends BaseActivity {
     LinearLayout passwordZone;
     ProgressDialog progressDialog;
 
+    @BindView(R.id.showPassword)
+    ImageView showPassword;
+
+    boolean isChecked = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +79,14 @@ public class LoginActivity extends BaseActivity {
         resetGuide.setOnClickListener(onResetListener);
         requestPermissions();
         checkToken();
+        showPassword.setOnClickListener(view ->{
+            if (isChecked){
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else{
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+            isChecked = !isChecked;
+        });
     }
 
     private void setViewCtrl(int ctrl){

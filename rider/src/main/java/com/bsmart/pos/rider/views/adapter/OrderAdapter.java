@@ -188,7 +188,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Info");
-        builder.setMessage("Are you sure you arrived at the center?");
+        builder.setMessage("Are you sure delivery to DC?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

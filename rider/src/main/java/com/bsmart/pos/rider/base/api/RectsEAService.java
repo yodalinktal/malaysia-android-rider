@@ -35,7 +35,7 @@ public interface RectsEAService {
     Observable<Response<JsonObject>> changePassword(@FieldMap Map<String, String> meta);
 
     @FormUrlEncoded
-    @POST("customer/reset/password")
+    @POST("rider/reset/password")
     Observable<Response<JsonObject>> resetPassword(@FieldMap Map<String, String> meta);
 
     @FormUrlEncoded
@@ -67,6 +67,10 @@ public interface RectsEAService {
     @FormUrlEncoded
     @POST("rider/order/finished")
     Observable<Response<JsonObject>> orderFinished(@FieldMap Map<String, Object> meta);
+
+    @FormUrlEncoded
+    @POST("common/check/order/status")
+    Observable<Response<JsonObject>> orderStatus(@FieldMap Map<String, Object> meta);
 
     @Streaming
     @GET

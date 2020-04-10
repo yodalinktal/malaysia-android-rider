@@ -4,9 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
@@ -61,6 +64,15 @@ public class RegisterActivity extends BaseActivity {
     @BindView(R.id.btnRegister)
     Button btnRegister;
 
+    @BindView(R.id.showPassword)
+    ImageView showPassword;
+
+    @BindView(R.id.showConfirmPassword)
+    ImageView showConfirmPassword;
+
+    boolean isChecked = true;
+    boolean isConfirmChecked = true;
+
     ProgressDialog progressDialog;
 
     @Override
@@ -71,7 +83,23 @@ public class RegisterActivity extends BaseActivity {
         header.setLeft(view->finish());
         header.setTitle(getResources().getString(R.string.title_activity_Register));
         btnRegister.setOnClickListener(onRegisterListener);
+        showPassword.setOnClickListener(view ->{
+            if (isChecked){
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else{
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+            isChecked = !isChecked;
+        });
 
+        showConfirmPassword.setOnClickListener(view ->{
+            if (isConfirmChecked){
+                etConfirmPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }else{
+                etConfirmPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
+            isConfirmChecked = !isConfirmChecked;
+        });
     }
 
 

@@ -14,7 +14,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tracking-Num: 868996"
-        android:textSize="18sp"
         android:textColor="@color/colorPrimary"
         android:layout_alignParentLeft="true"/>
   </RelativeLayout>
@@ -34,7 +33,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:padding="5dp"
-          android:textSize="18sp"
           android:textColor="@color/textTitle"
           android:text="customer,telephone"
           android:layout_alignParentTop="true"/>
@@ -45,7 +43,6 @@
           android:layout_height="wrap_content"
           android:padding="5dp"
           android:text="call"
-          android:textSize="18sp"
           android:textColor="@color/colorPrimary"
           android:layout_alignParentRight="true"/>
 
@@ -97,7 +94,6 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:padding="5dp"
-          android:textSize="18sp"
           android:textColor="@color/textTitle"
           android:text="to,telephone"
           android:layout_alignParentTop="true"/>
@@ -110,8 +106,7 @@
           android:padding="5dp"
           android:text="call"
           android:visibility="invisible"
-          android:textColor="@color/colorPrimary"
-          android:textSize="18sp" />
+          android:textColor="@color/colorPrimary" />
 
     </RelativeLayout>
 

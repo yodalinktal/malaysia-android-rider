@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="Rider Register"
+                    android:text="Rider Registration"
                     android:textColor="@color/textTitle"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -103,34 +103,44 @@
                 </LinearLayout>
 
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/login_input"
-                android:gravity="center_vertical">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/login_password" />
-
-                <EditText
-                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/transparent"
-                    android:gravity="center_vertical|left"
-                    android:hint="Enter Password"
-                    android:inputType="textPassword"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textColorHint="#b3b3b3"
-                    android:textSize="14dp" />
-            </LinearLayout>
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/login_input"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/login_password" />
+
+                    <EditText
+                        android:layout_weight="1"
+                        android:id="@+id/etPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical|left"
+                        android:hint="Enter Password"
+                        android:inputType="textPassword"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColorHint="#b3b3b3"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/showPassword"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/showpass" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,6 +159,7 @@
                         android:src="@drawable/login_password" />
 
                     <EditText
+                        android:layout_weight="1"
                         android:id="@+id/etConfirmPassword"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -160,6 +171,13 @@
                         android:paddingRight="10dp"
                         android:textColorHint="#b3b3b3"
                         android:textSize="14dp" />
+                    <ImageView
+                        android:id="@+id/showConfirmPassword"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/showpass" />
                 </LinearLayout>
 
                 <LinearLayout
