@@ -74,10 +74,12 @@
   </LinearLayout>
 
   <View
+      android:id="@+id/dotted_line"
       android:layout_width="match_parent"
       android:layout_marginTop="2dp"
-      android:layout_height="1dp"
-      android:background="@color/bgDivider"></View>
+      android:layout_height="2dp"
+      android:background="@drawable/bind_no_card_bg"
+      android:layerType="software"/>
 
   <LinearLayout
       android:id="@+id/toZone"
