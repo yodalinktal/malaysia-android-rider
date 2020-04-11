@@ -36,7 +36,7 @@ public class Api {
         if (BuildConfig.DEBUG) {
             return "http://192.168.3.40:8080/pos/api/";
         } else {
-            return "http://47.254.215.143/pos/api/";
+            return "http://18.136.103.132/pos/api/";
         }
     }
 }
