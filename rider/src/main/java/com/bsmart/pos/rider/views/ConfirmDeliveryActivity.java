@@ -123,7 +123,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                             fromInfo.setText("From: "+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
                                             toInfo.setText("To: "+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
                                         }else{
-                                            orderNo.setText("QR Code is invalid");
+                                            orderNo.setText("QR Code Invalid");
                                             fromInfo.setText("");
                                             toInfo.setText("");
                                             tipsImageView.setImageResource(R.mipmap.icon_caution);

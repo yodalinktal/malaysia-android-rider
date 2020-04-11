@@ -6,6 +6,7 @@ package com.bsmart.pos.rider.base.api.enums;
  */
 public class OrderStatusConstant {
 
+    public final static int WAITING = 1;
     public final static int ACCEPTED = 2;
     public final static int DELIVERING = 3;
     public final static int FINISHED = 4;

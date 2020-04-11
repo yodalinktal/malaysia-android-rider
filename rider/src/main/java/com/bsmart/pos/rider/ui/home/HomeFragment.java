@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,8 @@ import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
 import com.bsmart.pos.rider.tools.OrderUtil;
 import com.bsmart.pos.rider.views.MainActivity;
+import com.bsmart.pos.rider.views.adapter.NewOrderAdapter;
+import com.bsmart.pos.rider.views.adapter.OrderAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -45,7 +48,9 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -67,45 +72,13 @@ public class HomeFragment extends BaseQRCodeFragment {
 
     @BindView(R.id.text_home)
     TextView text_home;
-    @BindView(R.id.customFromInfo)
-    TextView customFromInfo;
-    @BindView(R.id.callFromInfo)
-    TextView callFromInfo;
-    @BindView(R.id.addressFromInfo)
-    TextView addressFromInfo;
-    @BindView(R.id.fromNav)
-    ImageView fromNav;
 
-    @BindView(R.id.customerToInfo)
-    TextView customerToInfo;
-    @BindView(R.id.callToInfo)
-    TextView callToInfo;
-    @BindView(R.id.addressToInfo)
-    TextView addressToInfo;
-    @BindView(R.id.toNav)
-    ImageView toNav;
+    private List<OrderBean> orderBeanList;
 
-    @BindView(R.id.createTime)
-    TextView createTime;
-    @BindView(R.id.orderNo)
-    TextView orderNo;
-    @BindView(R.id.pickTime)
-    TextView pickTime;
-    @BindView(R.id.postType)
-    TextView postType;
-    @BindView(R.id.sizeWeight)
-    TextView sizeWeight;
+    @BindView(R.id.orderListView)
+    ListView orderListView;
 
-    @BindView(R.id.btnCancel)
-    Button btnCancel;
-    @BindView(R.id.btnAccept)
-    Button btnAccept;
-
-    @BindView(R.id.orderZone)
-    CardView orderZone;
-
-    private OrderBean orderBean;
-    ProgressDialog progressDialog;
+    private NewOrderAdapter orderAdapter;
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -137,115 +110,9 @@ public class HomeFragment extends BaseQRCodeFragment {
             mainActivity.selectTab(1);
         });
 
-        fromNav.setOnClickListener(view ->{
-            Map<String,Double> currentLocation = App.getLocationData();
-            if (null != currentLocation){
-                AddressBean from = orderBean.getFrom();
 
-                String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
-                String daddr = from.getLoc().getLat()+","+from.getLoc().getLon();
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?"
-                                + "saddr="+saddr
-                                + "&daddr="+daddr
-                                +"&hl=en")
-                );
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addCategory(Intent.CATEGORY_LAUNCHER );
-                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-                startActivity(intent);
-            }else {
-                ToastUtils.showShort("Location is failed!");
-            }
-        });
-
-        callFromInfo.setOnClickListener(view ->{
-            AddressBean from = orderBean.getFrom();
-            String telephone = from.getTelephone();
-            Uri telUri = Uri.parse("tel:"+telephone);
-            Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
-            startActivity(intent);
-        });
-
-
-        toNav.setOnClickListener(view ->{
-            Map<String,Double> currentLocation = App.getLocationData();
-            if (null != currentLocation){
-                AddressBean to = orderBean.getTo();
-
-                String saddr = currentLocation.get("latitude")+","+currentLocation.get("longitude");
-                String daddr = to.getLoc().getLat()+","+to.getLoc().getLon();
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://maps.google.com/maps?"
-                                + "saddr="+saddr
-                                + "&daddr="+daddr
-                                +"&hl=en")
-                );
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addCategory(Intent.CATEGORY_LAUNCHER );
-                intent.setClassName("com.google.android.apps.maps","com.google.android.maps.MapsActivity");
-                startActivity(intent);
-            }else {
-                ToastUtils.showShort("Location is failed!");
-            }
-        });
-
-        callToInfo.setOnClickListener(view ->{
-            AddressBean to = orderBean.getTo();
-            String telephone = to.getTelephone();
-            Uri telUri = Uri.parse("tel:"+telephone);
-            Intent intent = new Intent(Intent.ACTION_DIAL, telUri);
-            startActivity(intent);
-        });
-
-        btnCancel.setOnClickListener(view ->{
-
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.selectTab(2);
-
-        });
-
-        btnAccept.setOnClickListener(view ->{
-
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Processing... Please wait.");
-            progressDialog.setCancelable(false);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-            String orderNo = orderBean.getOrderNo();
-            Map<String,Object> requestData = new HashMap<>();
-            requestData.put("token", ProfileUtils.getToken());
-            requestData.put("orderNo", orderNo);
-
-            Api.getRectsEA().orderAccept(requestData)
-                    .compose(new NetTransformer<>(JsonObject.class))
-                    .subscribe(new NetSubscriber<>(bean -> {
-                        progressDialog.dismiss();
-                                if (null != bean){
-
-                                    Log.d("orderAccept",bean.toString());
-
-                                    if (bean.get("errno").getAsInt()==0){
-                                        orderBean = null;
-                                        updateViews();
-                                       MainActivity mainActivity = (MainActivity) getActivity();
-                                       mainActivity.selectTab(1);
-                                    }else{
-                                        Log.e("HomeFragment",bean.get("errmsg").getAsString());
-                                    }
-
-                                }else{
-                                    Log.e("HomeFragment","Some error happened, Please try again later.");
-                                }
-
-                            }, e -> {
-                        progressDialog.dismiss();
-                                Log.e("HomeFragment","Some error happened, Please try again later.");
-                            }
-                            )
-                    );
-
-        });
+        orderBeanList = new ArrayList<>();
+        orderAdapter = new NewOrderAdapter(getContext(),R.layout.order_list_item,orderBeanList);
 
         checkNewOrder();
 
@@ -253,35 +120,19 @@ public class HomeFragment extends BaseQRCodeFragment {
     }
 
     private void updateViews(){
+        orderListView.setAdapter(orderAdapter);
+        if (null != orderBeanList && orderBeanList.size()>0){
 
-        if (null != orderBean){
-            orderZone.setVisibility(View.VISIBLE);
-
-            text_home.setText("Have new post order!");
-
-            AddressBean from = orderBean.getFrom();
-            customFromInfo.setText(from.getName()+" "+from.getTelephone());
-            addressFromInfo.setText(from.getPostcode()+","+from.getDetail()+","+from.getCity()+","+from.getState());
-
-            AddressBean to = orderBean.getTo();
-            customerToInfo.setText(to.getName()+" "+to.getTelephone());
-            addressToInfo.setText(to.getPostcode()+","+to.getDetail()+","+to.getCity()+","+to.getState());
-
-            createTime.setText("Post Time: "+orderBean.getCreatedDate());
-            orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
-            pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
-            postType.setText("Post Type: "+PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-            sizeWeight.setText("Size Weight: "+orderBean.getSizeWeight()+"kg");
+            text_home.setText("Have new Jobs!");
 
         }else{
-            text_home.setText("Have no order nearby");
-            orderZone.setVisibility(View.GONE);
+            text_home.setText("current, no jobs nearby,please wait");
         }
 
     }
 
     private void checkNewOrder(){
-
+        orderBeanList.clear();
         Map<String,Double> location = App.getLocationData();
         if (null != location){
             Map<String,Double> requestData = new HashMap<>();
@@ -303,22 +154,15 @@ public class HomeFragment extends BaseQRCodeFragment {
                                         if (null != jsonArray && jsonArray.size()>0){
                                             for (int i=0;i<jsonArray.size();i++) {
                                                 JsonObject jsonObject = jsonArray.get(i).getAsJsonObject();
-                                                orderBean = new OrderBean();
-                                                orderBean.setOrderNo(jsonObject.get("orderNo").getAsString());
-                                                orderBean.setFrom(App.gson.fromJson(jsonObject.get("from"),AddressBean.class));
-                                                orderBean.setTo(App.gson.fromJson(jsonObject.get("to"),AddressBean.class));
-                                                orderBean.setCreatedDate(jsonObject.get("createdDate").getAsString());
-                                                orderBean.setPostType(jsonObject.get("postType").getAsInt());
-                                                orderBean.setSizeWeight(jsonObject.get("sizeWeight").getAsDouble());
-                                                orderBean.setPickupTime(jsonObject.get("pickupTime").getAsString());
-                                                updateViews();
-                                                break;
+                                                jsonObject.remove("_id");
+                                                OrderBean orderBean = App.gson.fromJson(jsonObject,OrderBean.class);
+                                                orderBeanList.add(orderBean);
                                             }
                                         }else{
-                                            updateViews();
+
                                             Log.d("HomeFragment","no order nearby");
                                         }
-
+                                        updateViews();
                                     }else{
                                         Log.e("HomeFragment",bean.get("errmsg").getAsString());
                                     }
