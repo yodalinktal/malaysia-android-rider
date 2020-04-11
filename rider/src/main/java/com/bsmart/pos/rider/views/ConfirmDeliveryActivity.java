@@ -123,7 +123,8 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                             fromInfo.setText("From: "+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
                                             toInfo.setText("To: "+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
                                         }else{
-                                            orderNo.setText("QR Code Invalid");
+                                            orderNo.setText("invalid QR code");
+                                            payInfo.setText("");
                                             fromInfo.setText("");
                                             toInfo.setText("");
                                             tipsImageView.setImageResource(R.mipmap.icon_caution);
@@ -135,6 +136,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                     }else{
                                         Log.e("HomeFragment",bean.get("errmsg").getAsString());
                                         orderNo.setText(bean.get("errmsg").getAsString());
+                                        payInfo.setText("");
                                         fromInfo.setText("");
                                         toInfo.setText("");
                                         tipsImageView.setImageResource(R.mipmap.icon_caution);
@@ -146,6 +148,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                 }else{
                                     Log.e("HomeFragment","Some error happened, Please try again later.");
                                     orderNo.setText("Some error happened, Please try again later.");
+                                    payInfo.setText("");
                                     fromInfo.setText("");
                                     toInfo.setText("");
                                     tipsImageView.setImageResource(R.mipmap.icon_caution);
@@ -157,6 +160,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                             }, e -> {
                                 progressDialog.dismiss();
                                 orderNo.setText("Some error happened, Please try again later.");
+                                payInfo.setText("");
                                 fromInfo.setText("");
                                 toInfo.setText("");
                                 tipsImageView.setImageResource(R.mipmap.icon_caution);
@@ -168,7 +172,8 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                     );
 
         }else{
-            orderNo.setText("Data is invalid,Please Retry Scan QR");
+            orderNo.setText("Data is invalid,Please Retry Scan QR Code");
+            payInfo.setText("");
             fromInfo.setText("");
             toInfo.setText("");
             tipsImageView.setImageResource(R.mipmap.icon_caution);

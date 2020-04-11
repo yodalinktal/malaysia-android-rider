@@ -117,11 +117,11 @@ public class OrderFragment extends BaseQRCodeFragment {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "accepted jobs";
+                    return "Accepted Jobs";
                 case 1:
-                    return "delivery jobs";
+                    return "Delivery Jobs";
                 case 2:
-                    return "finished jobs";
+                    return "Finished Jobs";
                 default:
                     return "";
             }
