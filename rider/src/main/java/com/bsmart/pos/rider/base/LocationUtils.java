@@ -53,6 +53,10 @@ public class LocationUtils {
         return uniqueInstance;
     }
 
+    public void refreshLocation(){
+        getLocation();
+    }
+
     private void getLocation() {
         //1.获取位置管理器
         locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);

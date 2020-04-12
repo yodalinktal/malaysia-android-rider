@@ -3,10 +3,12 @@ package com.bsmart.pos.rider.views;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -191,6 +194,14 @@ public class LoginActivity extends BaseActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sign in... Please wait.");
         progressDialog.show();
+
+        //这里开始调用一下定位
+        Location mLocation = LocationUtils.getInstance(this.getApplication()).showLocation();
+        Log.d("mLocation", ""+mLocation);
+        if (null == mLocation){
+            LocationUtils.getInstance(this.getApplication()).refreshLocation();
+            App.resetLocation();
+        }
 
         Map<String, String> requestData = App.getMetaRequestData();
         requestData.put("username", etUsername.getText().toString());

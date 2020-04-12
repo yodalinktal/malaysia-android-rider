@@ -24,8 +24,13 @@ public class DateUtil {
         return new Date();
     }
 
+    public static String formatTimestampEnglish(Long timestamp){
+        Date date = new Date(timestamp);
+        return formatEnglish(date);
+    }
+
     public static String formatEnglish(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat("d/MMM/yyyy HH:mm", Locale.ENGLISH);
         return sdf.format(date);
     }
 

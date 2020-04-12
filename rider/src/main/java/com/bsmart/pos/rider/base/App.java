@@ -67,6 +67,10 @@ public class App extends MultiDexApplication {
         return map;
     }
 
+    public static void resetLocation(){
+        location = LocationUtils.getInstance(ctx).showLocation();
+    }
+
     public static Map<String,Double> getLocationData(){
 
         if (null != location){
