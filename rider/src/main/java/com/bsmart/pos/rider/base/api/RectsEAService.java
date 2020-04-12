@@ -31,6 +31,10 @@ public interface RectsEAService {
     Observable<Response<JsonObject>> login(@FieldMap Map<String, String> meta);
 
     @FormUrlEncoded
+    @POST("rider/logout")
+    Observable<Response<JsonObject>> logout(@FieldMap Map<String, String> meta);
+
+    @FormUrlEncoded
     @POST("rider/change/password")
     Observable<Response<JsonObject>> changePassword(@FieldMap Map<String, String> meta);
 

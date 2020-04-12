@@ -3,14 +3,21 @@ package com.bsmart.pos.rider.base;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import androidx.multidex.MultiDex;
 import androidx.multidex.MultiDexApplication;
 
 import com.blankj.utilcode.util.PhoneUtils;
+import com.bsmart.pos.rider.base.api.Api;
+import com.bsmart.pos.rider.base.api.NetSubscriber;
+import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.api.bean.OrderBean;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
 import com.facebook.stetho.Stetho;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
@@ -37,7 +44,39 @@ public class App extends MultiDexApplication {
         activities.add(activity);
     }
 
+
+    private static void logout(String username){
+        Map<String,String> requestData = new HashMap<>();
+        requestData.put("username", username);
+        Api.getRectsEA().logout(requestData)
+                .compose(new NetTransformer<>(JsonObject.class))
+                .subscribe(new NetSubscriber<>(bean -> {
+
+                            if (null != bean){
+
+                                Log.d("logout",bean.toString());
+
+                                if (bean.get("errno").getAsInt()==0){
+
+                                }else{
+                                    Log.e("App",bean.get("errmsg").getAsString());
+                                }
+
+                            }else{
+                                Log.e("App","Some error happened, Please try again later.");
+                            }
+
+                        }, e -> {
+
+                            Log.e("App","Some error happened, Please try again later.");
+                        }
+                        )
+                );
+    }
+
     public static void exit(){
+        String username = ProfileUtils.getUsername();
+        logout(username);
         ProfileUtils.removeSharePreference();
         for (Activity activity : activities) {
             if (null == activity || activity.isDestroyed()){

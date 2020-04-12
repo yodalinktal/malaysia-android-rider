@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ import com.bsmart.pos.rider.base.api.enums.PostTypeConstant;
 import com.bsmart.pos.rider.base.api.enums.SizeWeightConstant;
 import com.bsmart.pos.rider.base.utils.HeaderView;
 import com.bsmart.pos.rider.base.utils.ProfileUtils;
+import com.bsmart.pos.rider.tools.DateUtil;
 import com.bsmart.pos.rider.tools.OrderUtil;
 import com.bsmart.pos.rider.views.MainActivity;
 import com.bsmart.pos.rider.views.adapter.NewOrderAdapter;
@@ -49,6 +51,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,7 +117,6 @@ public class HomeFragment extends BaseQRCodeFragment {
         orderBeanList = new ArrayList<>();
         orderAdapter = new NewOrderAdapter(getContext(),R.layout.order_list_item,orderBeanList);
 
-        checkNewOrder();
 
         return root;
     }
@@ -184,10 +186,31 @@ public class HomeFragment extends BaseQRCodeFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        handler.removeCallbacks(runnable);
+        handler.postDelayed(runnable,2*1000);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
+        handler.removeCallbacks(runnable);
         unbinder.unbind();
     }
 
+    /**
+     * 自动刷新
+     */
+    private Handler handler = new Handler();
+    private final static long delayMillis = 2*60*1000; //单位毫秒
+    private Runnable runnable = new Runnable() {
+    public void run () {
+        Log.d("Refresh Handler:",new Date().toString());
+        text_home.setText("Refreshing New Jobs!");
+        checkNewOrder();
+        handler.postDelayed(this,delayMillis);
+        }
+    };
 
 }
