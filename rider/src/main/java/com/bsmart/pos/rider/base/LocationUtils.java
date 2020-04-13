@@ -96,36 +96,7 @@ public class LocationUtils {
         this.location = location;
         String address = "纬度：" + location.getLatitude() + "经度：" + location.getLongitude();
         //todo:不断更新骑手位置
-        String token = ProfileUtils.getToken();
-        Log.d(TAG,"token:"+token);
-        if (StringUtil.isNotEmpty(token)){
-            Map<String, Object> requestData = new HashMap<>();
-            requestData.put("token", token);
-            requestData.put("lon", location.getLongitude());
-            requestData.put("lat", location.getLatitude());
-            Api.getRectsEA().traceUpdate(requestData)
-                    .compose(new NetTransformer<>(JsonObject.class))
-                    .subscribe(new NetSubscriber<>(bean -> {
 
-                                if (null != bean){
-
-                                    if (bean.get("errno").getAsInt()==0){
-                                        Log.d("LocationUtils Update:","Success");
-                                    }else{
-                                        Log.e("LocationUtils Error:",bean.get("errmsg").getAsString());
-                                    }
-
-                                }else{
-                                    Log.e("LocationUtils Error:","Some error happened, Please try again later");
-                                }
-
-                            }, e -> {
-                                Log.e("LocationUtils Error:","Some error happened, Please try again later");
-
-                            }
-                            )
-                    );
-        }
         Log.d(TAG, address);
     }
 

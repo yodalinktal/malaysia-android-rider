@@ -51,7 +51,7 @@ public class NotifyUtil {
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(intent);
-        builder.setChannelId("POSCustomer");
+        builder.setChannelId(context.getString(R.string.app_name));
         builder.setDefaults(Notification.DEFAULT_ALL);
         Notification notification = builder.build();
         int flags = (Notification.FLAG_FOREGROUND_SERVICE | Notification.FLAG_ONLY_ALERT_ONCE);
@@ -72,11 +72,11 @@ public class NotifyUtil {
 
     public static void setAlarm(Context context) {
         PendingIntent mPendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(
-                "com.yoda.cn.ticker"), 0);
+                "com.linktal.yoda.ticker"), 0);
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         manager.cancel(mPendingIntent);
         manager.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis(), 5 * 60000, mPendingIntent);
+                System.currentTimeMillis(), 2 * 60000, mPendingIntent);
     }
 
     @TargetApi(Build.VERSION_CODES.M)

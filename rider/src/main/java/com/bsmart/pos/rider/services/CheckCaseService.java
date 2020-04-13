@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.bsmart.pos.rider.base.App;
+import com.bsmart.pos.rider.base.LocationUtils;
 import com.bsmart.pos.rider.base.api.Api;
 import com.bsmart.pos.rider.base.api.NetSubscriber;
 import com.bsmart.pos.rider.base.api.NetTransformer;
@@ -29,9 +30,10 @@ public class CheckCaseService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Notification n = NotifyUtil.getNotification(this, "POSRider is running", true, NotifyUtil.getPendingIntent(this));
+        Notification n = NotifyUtil.getNotification(this, "DEXRider is running", true, NotifyUtil.getPendingIntent(this));
         this.startForeground(1, n);
-        thread.scheduleAtFixedRate(netWorker, 30, 30, TimeUnit.SECONDS);
+        thread.scheduleAtFixedRate(netWorker, 30, 60, TimeUnit.SECONDS);
+        Log.d("CheckService","DEXRider is running");
     }
 
     @Override
@@ -44,39 +46,40 @@ public class CheckCaseService extends Service {
         @Override
         public void run() {
 
+            LocationUtils.getInstance(App.getApp()).refreshLocation();
+            Log.d("CheckService","background location");
             Map<String, Double> locationData = App.getLocationData();
-            //API
-//            //todo:不断更新骑手位置
-//            String token = ProfileUtils.getToken();
-//            Log.d("CheckService","token:"+token+",locationData:"+locationData);
-//            if (StringUtil.isNotEmpty(token) && null != locationData){
-//                Map<String, Object> requestData = new HashMap<>();
-//                requestData.put("token", token);
-//                requestData.put("lon", locationData.get("longitude"));
-//                requestData.put("lat", locationData.get("latitude"));
-//                Api.getRectsEA().traceUpdate(requestData)
-//                        .compose(new NetTransformer<>(JsonObject.class))
-//                        .subscribe(new NetSubscriber<>(bean -> {
-//
-//                                    if (null != bean){
-//
-//                                        if (bean.get("errno").getAsInt()==0){
-//                                            Log.d("LocationUtils Update:","Success");
-//                                        }else{
-//                                            Log.e("LocationUtils Error:",bean.get("errmsg").getAsString());
-//                                        }
-//
-//                                    }else{
-//                                        Log.e("LocationUtils Error:","Some error happened, Please try again later");
-//                                    }
-//
-//                                }, e -> {
-//                                    Log.e("LocationUtils Error:","Some error happened, Please try again later");
-//
-//                                }
-//                                )
-//                        );
-//            }
+            //todo:不断更新骑手位置
+            String token = ProfileUtils.getToken();
+            Log.d("CheckService","token:"+token+",locationData:"+locationData);
+            if (StringUtil.isNotEmpty(token) && null != locationData){
+                Map<String, Object> requestData = new HashMap<>();
+                requestData.put("token", token);
+                requestData.put("lon", locationData.get("longitude"));
+                requestData.put("lat", locationData.get("latitude"));
+                Api.getRectsEA().traceUpdate(requestData)
+                        .compose(new NetTransformer<>(JsonObject.class))
+                        .subscribe(new NetSubscriber<>(bean -> {
+
+                                    if (null != bean){
+
+                                        if (bean.get("errno").getAsInt()==0){
+                                            Log.d("LocationUtils Update:","Success");
+                                        }else{
+                                            Log.e("LocationUtils Error:",bean.get("errmsg").getAsString());
+                                        }
+
+                                    }else{
+                                        Log.e("LocationUtils Error:","Some error happened, Please try again later");
+                                    }
+
+                                }, e -> {
+                                    Log.e("LocationUtils Error:","Some error happened, Please try again later");
+
+                                }
+                                )
+                        );
+            }
         }//end run
     };
 }

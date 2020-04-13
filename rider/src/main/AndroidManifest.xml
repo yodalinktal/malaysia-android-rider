@@ -83,7 +83,19 @@
         </activity>
 
         <!-- Services-->
-        <service android:name=".services.CheckCaseService" />
+        <service
+            android:name=".services.CheckCaseService"/>
+        <service
+            android:name=".services.ScheduleService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver
+            android:name=".base.utils.notification.AlarmReceiver"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.linktal.yoda.ticker"></action>
+                <category android:name="android.intentcategory.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

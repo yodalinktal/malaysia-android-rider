@@ -1,5 +1,7 @@
 package com.bsmart.pos.rider.views;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -9,6 +11,8 @@ import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.api.Api;
 import com.bsmart.pos.rider.base.api.NetSubscriber;
 import com.bsmart.pos.rider.base.api.NetTransformer;
+import com.bsmart.pos.rider.base.utils.notification.NotifyUtil;
+import com.bsmart.pos.rider.services.CheckCaseService;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
         //checkNewOrder();
+
+        startService();
     }
 
     public void selectTab(int ItemId){
@@ -52,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.onNavDestinationSelected(navView.getMenu().getItem(ItemId),navController);
         }
 
+    }
+
+    private void startService() {
+        Intent i = new Intent(this, CheckCaseService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.startForegroundService(i);
+        } else {
+            this.startService(i);
+        }
+        NotifyUtil.setAlarm(this);
+        // 增加定时任务,用来定时唤醒服务进行工作.
+        NotifyUtil.setJobSchedule(this);
     }
 
 
