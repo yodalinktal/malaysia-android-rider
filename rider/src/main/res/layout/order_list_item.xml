@@ -178,6 +178,14 @@
           android:textColor="@color/textTitle"
           android:text="Size Weight: 0.1~5kg"/>
 
+      <TextView
+          android:id="@+id/volume"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:textColor="@color/textTitle"
+          android:text="Volume: "/>
+
     </LinearLayout>
     <Button
         android:id="@+id/btnOperation"

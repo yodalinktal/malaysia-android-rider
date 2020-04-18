@@ -49,6 +49,9 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     @BindView(R.id.btnDelivery)
     Button btnDelivery;
 
+    @BindView(R.id.btnReceipt)
+    Button btnReceipt;
+
     @BindView(R.id.orderNo)
     TextView orderNo;
 
@@ -74,6 +77,8 @@ public class ConfirmDeliveryActivity extends BaseActivity {
 
     ProgressDialog progressDialog;
 
+    String orderInfo = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -84,9 +89,10 @@ public class ConfirmDeliveryActivity extends BaseActivity {
         header.setTitle(getResources().getString(R.string.title_activity_Delivery));
         header.setLeft(view->finish());
         btnDelivery.setOnClickListener(onDeliveryListener);
+        btnReceipt.setOnClickListener(onReceiptListener);
 
         Intent intent = getIntent();
-        String orderInfo = intent.getStringExtra(BaseQRCodeFragment.ORDERINFO);
+        orderInfo = intent.getStringExtra(BaseQRCodeFragment.ORDERINFO);
 
         if (!StringUtils.isEmpty(orderInfo)){
             try {
@@ -122,6 +128,12 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                             payInfo.setText("Pay Type: "+ PayConstant.getInstance().TYPE_ENUM.get(orderBean.getPayType())+", Amount: RM "+(new Double(orderBean.getAmount())/100.00));
                                             fromInfo.setText("From: "+orderBean.getFrom().getName()+", "+orderBean.getFrom().getTelephone());
                                             toInfo.setText("To: "+orderBean.getTo().getName()+", "+orderBean.getTo().getTelephone());
+
+                                            if (PayConstant.getInstance().TYPE_ENUM.get(orderBean.getPayType()).equals("Cash On Delivery (COD)")){
+                                                btnReceipt.setVisibility(View.VISIBLE);
+                                            }else{
+                                                btnReceipt.setVisibility(View.INVISIBLE);
+                                            }
                                         }else{
                                             orderNo.setText("invalid QR code");
                                             payInfo.setText("");
@@ -131,6 +143,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                             tipsTitle.setText("");
                                             tipsSecondTitle.setText("");
                                             btnDelivery.setVisibility(View.INVISIBLE);
+                                            btnReceipt.setVisibility(View.INVISIBLE);
                                         }
 
                                     }else{
@@ -143,6 +156,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                         tipsTitle.setText("");
                                         tipsSecondTitle.setText("");
                                         btnDelivery.setVisibility(View.INVISIBLE);
+                                        btnReceipt.setVisibility(View.INVISIBLE);
                                     }
 
                                 }else{
@@ -155,6 +169,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                     tipsTitle.setText("");
                                     tipsSecondTitle.setText("");
                                     btnDelivery.setVisibility(View.INVISIBLE);
+                                    btnReceipt.setVisibility(View.INVISIBLE);
                                 }
 
                             }, e -> {
@@ -167,6 +182,7 @@ public class ConfirmDeliveryActivity extends BaseActivity {
                                 tipsTitle.setText("");
                                 tipsSecondTitle.setText("");
                                 btnDelivery.setVisibility(View.INVISIBLE);
+                                btnReceipt.setVisibility(View.INVISIBLE);
                             }
                             )
                     );
@@ -180,10 +196,18 @@ public class ConfirmDeliveryActivity extends BaseActivity {
             tipsTitle.setText("Scan recognition error!");
             tipsSecondTitle.setText("");
             btnDelivery.setVisibility(View.INVISIBLE);
+            btnReceipt.setVisibility(View.INVISIBLE);
+
         }
 
 
     }
+
+    private View.OnClickListener onReceiptListener = view ->{
+        Intent _intent = new Intent(this,ReceiptActivity.class);
+        _intent.putExtra(BaseQRCodeFragment.ORDERINFO,orderInfo);
+        startActivity(_intent);
+    };
 
     private View.OnClickListener onDeliveryListener = view -> {
 

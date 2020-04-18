@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+    android:background="@color/white"
+  >
+  <com.bsmart.pos.rider.base.utils.HeaderView
+      android:id="@+id/header"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/toolbarHeight">
+  </com.bsmart.pos.rider.base.utils.HeaderView>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+    android:orientation="vertical"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp">
+  <TextView
+      android:layout_gravity="center"
+      android:id="@+id/saleType"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="2dp"
+      android:textSize="14sp"
+      android:layout_marginTop="40dp"
+      android:textColor="@color/textTitle"
+      android:text="Sale Type: "/>
+  <TextView
+      android:layout_gravity="left"
+      android:id="@+id/receiptNo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="2dp"
+      android:textSize="14sp"
+      android:layout_marginTop="5dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginBottom="10dp"
+      android:textColor="@color/textTitle"
+      android:text="Receipt No: "/>
+
+  <RelativeLayout
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="14sp"
+        android:textColor="@color/textTitle"
+        android:text="ITEM"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="14sp"
+          android:textColor="@color/textTitle"
+          android:text="QTY"
+          android:layout_alignParentTop="true"/>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="14sp"
+          android:textColor="@color/textTitle"
+          android:layout_marginLeft="40dp"
+          android:text="RM"
+          android:layout_alignParentTop="true"/>
+    </LinearLayout>
+
+  </RelativeLayout>
+
+  <View
+      android:id="@+id/dotted_line"
+      android:layout_width="match_parent"
+      android:layout_height="2dp"
+      android:background="@drawable/bind_no_card_bg"
+      android:layerType="software"/>
+
+  <RelativeLayout
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/itemWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textSize="14sp"
+        android:textColor="@color/textTitle"
+        android:text="Parcel()"
+        android:layout_alignParentTop="true"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true">
+      <TextView
+          android:id="@+id/itemCount"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="14sp"
+          android:textColor="@color/textTitle"
+          android:text="1"
+          android:layout_alignParentTop="true"/>
+      <TextView
+          android:id="@+id/itemPrice"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="5dp"
+          android:textSize="14sp"
+          android:textColor="@color/textTitle"
+          android:layout_marginLeft="40dp"
+          android:text="6.98"
+          android:layout_alignParentTop="true"/>
+    </LinearLayout>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/addressZone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_alignParentTop="true">
+
+      <TextView
+          android:layout_gravity="center"
+          android:id="@+id/orderNo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="14sp"
+          android:textColor="@color/textTitle"
+          android:padding="2dp"
+          android:text="TrackingNum: 9837 7271 8231 122"/>
+
+      <TextView
+          android:layout_gravity="center"
+          android:id="@+id/createTime"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="2dp"
+          android:textSize="14sp"
+          android:layout_marginTop="20dp"
+          android:textColor="@color/textTitle"
+          android:text="Date:2020-02-02 10:00"/>
+
+    </LinearLayout>
+
+  </RelativeLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

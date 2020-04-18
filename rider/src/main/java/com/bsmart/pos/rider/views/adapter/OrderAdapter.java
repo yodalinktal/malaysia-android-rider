@@ -70,6 +70,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
             viewHolder.pickTime = (TextView) view.findViewById(R.id.pickTime);
             viewHolder.postType = (TextView) view.findViewById(R.id.postType);
             viewHolder.sizeWeight = (TextView) view.findViewById(R.id.sizeWeight);
+            viewHolder.volume = (TextView) view.findViewById(R.id.volume);
             viewHolder.btnOperation = (Button) view.findViewById(R.id.btnOperation);
 
             viewHolder.callFromInfo = (TextView) view.findViewById(R.id.callFromInfo);
@@ -178,9 +179,21 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         viewHolder.addressToInfo.setText(orderBean.getTo().getPostcode()+","+orderBean.getTo().getDetail()+","+orderBean.getTo().getCity()+","+orderBean.getTo().getState());
         viewHolder.createTime.setText("Post Time: "+ DateUtil.formatTimestampEnglish(orderBean.getCreatedTimestamp()));
         viewHolder.orderNo.setText("Tracking Num: "+ OrderUtil.formatOrderNo(orderBean.getOrderNo()));
-        viewHolder.pickTime.setText("Pickup Time: "+orderBean.getPickupTime());
+        viewHolder.pickTime.setText("Estimate Time: "+orderBean.getPickupTime());
         viewHolder.postType.setText("Post Type: "+ PostTypeConstant.getInstance().TYPE_ENUM.get(orderBean.getPostType()));
-        viewHolder.sizeWeight.setText("Size Weight: "+ orderBean.getSizeWeight()+"kg");
+        viewHolder.sizeWeight.setText("Size Weight: "+ orderBean.getSizeWeight()+"KG");
+
+        if (null != orderBean.getVolume_length()){
+            viewHolder.volume.setVisibility(View.VISIBLE);
+            viewHolder.volume.setText("Volume: "+orderBean.getVolume_length()
+                    +"x"+
+                    orderBean.getVolume_width()
+                    +"x"+
+                    orderBean.getVolume_height()
+                    +"CM");
+        }else{
+            viewHolder.volume.setVisibility(View.GONE);
+        }
 
         return view;
     }
@@ -251,6 +264,7 @@ public class OrderAdapter extends ArrayAdapter<OrderBean> {
         TextView pickTime;
         TextView postType;
         TextView sizeWeight;
+        TextView volume;
         Button btnOperation;
 
         TextView callFromInfo;

@@ -27,8 +27,36 @@ public class OrderBean {
     private String createdDate;
     private Long createdTimestamp;
 
+    private Double volume_length;
+    private Double volume_width;
+    private Double volume_height;
+
     private Double contentValue; //内容价值（值多少钱）
     private String desc; //商品描述
+
+    public Double getVolume_length() {
+        return volume_length;
+    }
+
+    public void setVolume_length(Double volume_length) {
+        this.volume_length = volume_length;
+    }
+
+    public Double getVolume_width() {
+        return volume_width;
+    }
+
+    public void setVolume_width(Double volume_width) {
+        this.volume_width = volume_width;
+    }
+
+    public Double getVolume_height() {
+        return volume_height;
+    }
+
+    public void setVolume_height(Double volume_height) {
+        this.volume_height = volume_height;
+    }
 
     public Double getContentValue() {
         return contentValue;

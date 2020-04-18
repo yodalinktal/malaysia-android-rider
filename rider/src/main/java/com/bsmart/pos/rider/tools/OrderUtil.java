@@ -6,6 +6,36 @@ package com.bsmart.pos.rider.tools;
  */
 public class OrderUtil {
 
+
+    public static String formatReceiptNo(String receiptNo){
+        StringBuffer sb = new StringBuffer();
+
+        if (StringUtil.isNotEmpty(receiptNo)){
+
+            String A = receiptNo.toUpperCase();
+
+            int length = A.length();
+            int section = length/8;
+            int mode = length%8;
+
+            for (int i = 0; i < section; i++) {
+                sb.append(A.substring(i*8,(i+1)*8));
+                if (mode==0 && i==section-1){
+
+                }else{
+                    sb.append("-");
+                }
+
+            }
+
+            if (mode>0){
+                sb.append(A.substring(section*8,section*8+mode));
+            }
+        }
+
+        return sb.toString();
+    }
+
     /**
      *
      * @param orderNo 202004011430531 => 2020 0401 1430 531

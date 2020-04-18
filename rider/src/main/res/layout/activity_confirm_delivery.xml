@@ -137,6 +137,20 @@
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
+                <Button
+                    android:id="@+id/btnReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/normal_button"
+                    android:gravity="center"
+                    android:text="Preview Receipt"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
             </LinearLayout>
 
         </ScrollView>
