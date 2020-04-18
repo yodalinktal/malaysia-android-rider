@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:background="@color/background">
 
     <com.bsmart.pos.rider.base.utils.HeaderView
         android:id="@+id/header"
-        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight">
     </com.bsmart.pos.rider.base.utils.HeaderView>
@@ -28,69 +27,48 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="160dp"
-                        android:layout_height="160dp"
-                        android:src="@drawable/pos" />
-
-                </LinearLayout>
-
 
                 <TextView
-                    android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/app_name"
+                    android:layout_marginTop="20dp"
+                    android:text="New Applicant"
                     android:textColor="@color/textTitle"
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
 
                 <LinearLayout
-                    android:id="@+id/usernameZone"
-                    android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/login_input"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/login_username" />
+
+                <EditText
+                    android:id="@+id/etFullName"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="32dp"
-                    android:background="@drawable/login_input"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/login_username" />
-
-                    <EditText
-                        android:id="@+id/etUsername"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent"
-                        android:gravity="center_vertical|left"
-                        android:hint="Enter Username"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        android:textColorHint="#b3b3b3"
-                        android:textSize="14dp" />
-
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:background="@color/transparent"
+                    android:gravity="center_vertical|left"
+                    android:hint="Entry Your FullName"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColorHint="#b3b3b3"
+                    android:textSize="14dp" />
+            </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/passwordZone"
-                    android:visibility="invisible"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="32dp"
@@ -104,34 +82,115 @@
                         android:layout_height="24dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/login_password" />
+                        android:src="@drawable/login_icnumber" />
 
                     <EditText
-                        android:id="@+id/etPassword"
-                        android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/etIcNumber"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|left"
-                        android:hint="Enter Password"
-                        android:inputType="textPassword"
+                        android:hint="Entry IC Number"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textColorHint="#b3b3b3"
                         android:textSize="14dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/login_input"
+                    android:gravity="center_vertical">
 
                     <ImageView
-                        android:id="@+id/showPassword"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/showpass" />
+                        android:src="@drawable/login_address" />
+
+                    <EditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical|left"
+                        android:hint="Entry Your Address"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColorHint="#b3b3b3"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/login_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/login_email" />
+
+                    <EditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical|left"
+                        android:hint="Enter Email"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColorHint="#b3b3b3"
+                        android:inputType="textEmailAddress"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/login_input"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/login_telephone" />
+
+                    <EditText
+                        android:id="@+id/etContactNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical|left"
+                        android:hint="Entry Your Contact Number"
+                        android:inputType="number"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColorHint="#b3b3b3"
+                        android:textSize="14dp" />
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btnLogin"
-                    android:visibility="invisible"
+                    android:id="@+id/btnApplicant"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginLeft="32dp"
@@ -139,43 +198,10 @@
                     android:layout_marginRight="32dp"
                     android:background="@drawable/login_button"
                     android:gravity="center"
-                    android:text="Login"
+                    android:text="Submit"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/registerGuide"
-                    android:visibility="invisible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/pages_text_Register_Guide"/>
-
-                <TextView
-                    android:id="@+id/resetGuide"
-                    android:visibility="invisible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/pages_text_Reset_Guide"/>
-
-                <TextView
-                    android:id="@+id/applicantGuide"
-                    android:visibility="invisible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="14sp"
-                    android:textColor="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/pages_text_Applicant_Guide"/>
 
                 <View
                     android:layout_width="1dp"
@@ -188,7 +214,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="20dp"
-                    android:textColor="@color/textTitleSecond"
                     android:text="Powered by BSMART" />
             </LinearLayout>
 
