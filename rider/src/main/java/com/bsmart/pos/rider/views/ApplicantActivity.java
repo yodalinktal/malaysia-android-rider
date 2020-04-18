@@ -1,6 +1,7 @@
 package com.bsmart.pos.rider.views;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
@@ -81,8 +83,21 @@ public class ApplicantActivity extends BaseActivity {
 
     private void performRegister(View view) {
         view.setEnabled(false);
+
+        if (TextUtils.isEmpty(etFullName.getText())) {
+            ToastUtils.showShort("Confirm FullName must not be empty");
+            view.setEnabled(true);
+            return;
+        }
+
         if (TextUtils.isEmpty(etIcNumber.getText())) {
             ToastUtils.showShort("IC Number must not be empty");
+            view.setEnabled(true);
+            return;
+        }
+
+        if (TextUtils.isEmpty(etAddress.getText())) {
+            ToastUtils.showShort("Address must not be empty");
             view.setEnabled(true);
             return;
         }
@@ -97,17 +112,6 @@ public class ApplicantActivity extends BaseActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(etAddress.getText())) {
-            ToastUtils.showShort("Address must not be empty");
-            view.setEnabled(true);
-            return;
-        }
-
-        if (TextUtils.isEmpty(etFullName.getText())) {
-            ToastUtils.showShort("Confirm FullName must not be empty");
-            view.setEnabled(true);
-            return;
-        }
 
         if (TextUtils.isEmpty(etContactNumber.getText())) {
             ToastUtils.showShort("Confirm Contact Number must not be empty");
@@ -135,7 +139,26 @@ public class ApplicantActivity extends BaseActivity {
 
                     if (null != bean){
                         if (bean.get("errno").getAsInt()==0){
-                            openLoginActivity();
+
+                            //    通过AlertDialog.Builder这个类来实例化我们的一个AlertDialog的对象
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ApplicantActivity.this);
+                            //    设置Title的内容
+                            builder.setTitle("Info");
+                            //    设置Content来显示一个信息
+                            builder.setMessage("Your application has been submitted successfully");
+                            //    设置一个PositiveButton
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which)
+                                {
+                                    openLoginActivity();
+                                }
+                            });
+                            //    显示出该对话框
+                            builder.show();
+
+
                         }else{
                             ToastUtils.showShort(bean.get("errmsg").getAsString());
                         }
