@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bsmart.pos.rider.R;
 import com.bsmart.pos.rider.base.App;
 import com.bsmart.pos.rider.base.BaseActivity;
@@ -204,9 +205,44 @@ public class ConfirmDeliveryActivity extends BaseActivity {
     }
 
     private View.OnClickListener onReceiptListener = view ->{
-        Intent _intent = new Intent(this,ReceiptActivity.class);
-        _intent.putExtra(BaseQRCodeFragment.ORDERINFO,orderInfo);
-        startActivity(_intent);
+//        Intent _intent = new Intent(this,ReceiptActivity.class);
+//        _intent.putExtra(BaseQRCodeFragment.ORDERINFO,orderInfo);
+//        startActivity(_intent);
+        progressDialog.setMessage("Sending Receipt Via email... Please wait.");
+        progressDialog.show();
+        Map<String,Object> requestData = new HashMap<>();
+        requestData.put("token", ProfileUtils.getToken());
+        requestData.put("orderNo", orderBean.getOrderNo());
+
+        Api.getRectsEA().sendReceipt(requestData)
+                .compose(new NetTransformer<>(JsonObject.class))
+                .subscribe(new NetSubscriber<>(bean -> {
+                            progressDialog.dismiss();
+                            if (null != bean){
+
+                                Log.d("orderDelivery",bean.toString());
+
+                                if (bean.get("errno").getAsInt()==0){
+
+                                    ToastUtils.showShort("Sent successfully");
+
+                                }else{
+                                    Log.e("orderDelivery",bean.get("errmsg").getAsString());
+                                    ToastUtils.showShort(bean.get("errmsg").getAsString());
+                                }
+
+                            }else{
+                                Log.e("orderDelivery","Some error happened, Please try again later.");
+                                ToastUtils.showShort("Some error happened, Please try again later.");
+                            }
+
+                        }, e -> {
+                            progressDialog.dismiss();
+                            ToastUtils.showShort("Some error happened, Please try again later.");
+                        }
+                        )
+                );
+
     };
 
     private View.OnClickListener onDeliveryListener = view -> {

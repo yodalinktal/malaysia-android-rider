@@ -146,7 +146,7 @@
                     android:layout_marginRight="32dp"
                     android:background="@drawable/normal_button"
                     android:gravity="center"
-                    android:text="Preview Receipt"
+                    android:text="Send receipt by email"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
